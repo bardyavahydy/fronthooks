@@ -112,7 +112,7 @@ template.innerHTML = `
 
                 <!-- mobile register -->
                 <div class="mobile-register">
-                    <a href="../auth.html" class="mobile-register__link transition-bg-3s center">
+                    <a href="./auth.html" class="mobile-register__link transition-bg-3s center">
                         <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" class="mobile-register__svg ml-svg" height="1em" width="1em"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
                         ورود
                     </a>
@@ -155,7 +155,7 @@ template.innerHTML = `
                 </a>
             </div>
             <div class="desktop-register">
-                <a href="../auth.html" class="desktop-register__link transition-bg-3s align-items-center padding-container">
+                <a href="./auth.html" class="desktop-register__link transition-bg-3s align-items-center padding-container">
                     <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" class="desktop-register__svg ml-svg" height="1em" width="1em"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
                     ورود
                 </a>
