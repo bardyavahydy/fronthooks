@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shotcut icon" href="./imgs/fh-favicon.ico">
+    <link rel="stylesheet" href="./styles/fonts.css">
+    <link rel="stylesheet" href="./styles/auth.css">
+    <script src="https://kit.fontawesome.com/d6898ed701.js" crossorigin="anonymous"></script>
+    <title>ورود / ثبت نام | فرانت هوکس</title>
+</head>
+
+<script type="module" src="./js/auth.js" defer></script>
+
+<body>
+    <div class="bg-blue"></div>
+    <div class="total-container center">
+        <div class="container space-between padding-container">
+            <div class="container-form">
+                <div class="container-first-form">
+                    <h3 class="container-form__title title-form">فرانت هوکس</h3>
+                    <p class="container-from__login-or-register">ورود | ثبت نام</p>
+                    <form class="form" onsubmit="event.preventDefault()">
+                        <p class="form__hi">سلام!</p>
+                        <label for="form-input" class="form__label">لطفا ایمیل یا شماره موبایل خود را وارد کنید</label>
+                        <input type="text" class="form__input input" id="form-input">
+                        <button type="submit" class="btn-register btn cursor-pointer">ورود</button>
+                    </form>
+                </div>
+                <div class="container-second-form">
+                    <form class="second-form">
+                        <div class="second-form__container-title align-items-center">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" class="second-form__svg-back cursor-pointer" height="1em" width="1em">
+                                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                            <h3 class="second-form__title title-form">فرانت هوکس</h3>
+                        </div>
+                        <p class="second-form__message">کد تائید برای شماره موبایل ۰۹۳۸۸۲۴۷۸۰۱ ارسال گردید</p>
+                        <label for="" class="second-form__label">کد تایید را وارد کنید</label>
+                        <div class="second-form__container-form">
+                            <input type="text" class="input-digit6 input-digits">
+                            <input type="text" class="input-digit5 input-digits">
+                            <input type="text" class="input-digit4 input-digits">
+                            <input type="text" class="input-digit3 input-digits">
+                            <input type="text" class="input-digit2 input-digits">
+                            <input type="text" class="input-digit1 input-digits">
+                        </div>
+                        <p class="second-form__count-down">ارسال مجدد کد تا ۹۰ ثانیه دیگر</p>
+                        <p class="second-form__alarm cursor-pointer">دریافت مجدد کد تایید</p>
+                        <button class="btn-confirm btn cursor-pointer">تایید و ادامه</button>
+                    </form>
+                </div>
+                <div class="container-third-form">
+                    <div class="second-form__container-title align-items-center">
+                        <h3 class="second-form__title title-form">فرانت هوکس</h3>
+                    </div>
+                    <form class="third-form">
+                        <label class="third-form__label" for="first-and-lastname">نام و نام خانوادگی</label>
+                        <input type="text" class="third-form__input username-input-elm input" id="first-and-lastname">
+                        <div class="third-from__container-email-input">
+                            <label class="third-form__label" for="email-input">ایمیل</label>
+                            <input type="email" class="third-form__input user-email-input input" id="email-input">
+                        </div>
+                        <div class="third-from__container-phone-input">
+                            <label class="third-form__label" for="phone-input">شماره موبایل</label>
+                            <input type="text" class="third-form__input user-phone-input input" id="phone-input">
+                        </div>
+
+                        <button class="btn-submit-information btn cursor-pointer">ثبت اطلاعات</button>
+                    </form>
+                </div>
+                <div class="loading center">
+                    <span class="loading__circle"></span>
+                    <span class="loading__circle loading__circle--mid"></span>
+                    <span class="loading__circle"></span>
+                </div> 
+            </div>
+
+            <div class="container-descriptions">
+                <div class="container-registration-procedures center">
+                    <div class="authentication center active">
+                        <div class="authentication__step step">1</div>
+                        <span class="authentication__step-name step-name">احراز هویت</span>
+                    </div>
+                    <div class="completion-of-information center">
+                        <div class="completion-of-information__step step">2</div>
+                        <span class="completion-of-information__step-name step-name">تکمیل اطلاعات</span>
+                    </div>
+                    <div class="Order center">
+                        <div class="Order__step step">3</div>
+                        <span class="Order__step-name step-name">ثبت سفارش</span>
+                    </div>
+                </div>
+                <div class="description center">
+                    <img src="./imgs/cash.webp" alt="وبسایت آموزش برنامه نویسی |فرانت هوکس" class="description__img">
+                    <h2 class="description__title">یادگیری مهارت برنامه نویسی</h2>
+                    <p class="description__text">برنامه نویسی مهارتیه که نیاز همیشگی جامعه است و هیچ ریسکی نداره. شما روی خودتان سرمایه گذاری می کنید تا رشد کنید و آینده بهترهی را رقم بزنید.</p>
+                    <a href="#" class="description__link align-items-center">
+                        <svg viewBox="0 0 24 24" fill="none" class="description__svg mr-svg">
+                            <path fill="currentColor" d="m3.353 14.812.73-.175-.73.175Zm0-5.979.73.175-.73-.175Zm17.294 0-.73.175.73-.175Zm0 5.979-.73-.175.73.175Zm-5.597 5.487-.168-.731.168.73Zm-6.1 0-.168.73.168-.73Zm0-16.953.168.73-.168-.73Zm6.1 0-.168.73.168-.73ZM4.082 14.637a12.089 12.089 0 0 1 0-5.63l-1.459-.349a13.589 13.589 0 0 0 0 6.328l1.46-.349Zm15.836-5.63a12.087 12.087 0 0 1 0 5.63l1.459.35a13.588 13.588 0 0 0 0-6.329l-1.46.35Zm-5.036 10.56a12.868 12.868 0 0 1-5.764 0l-.336 1.463c2.117.486 4.32.486 6.436 0l-.336-1.462ZM9.117 4.078a12.865 12.865 0 0 1 5.764 0l.336-1.462a14.365 14.365 0 0 0-6.436 0l.336 1.462Zm0 15.49c-2.506-.575-4.452-2.49-5.036-4.93l-1.459.35c.72 3.005 3.11 5.342 6.16 6.043l.335-1.462Zm6.1 1.463c3.048-.701 5.44-3.038 6.159-6.044l-1.46-.349c-.583 2.44-2.53 4.355-5.036 4.93l.337 1.463Zm-.336-16.953c2.506.576 4.452 2.491 5.036 4.93l1.459-.349c-.72-3.005-3.11-5.342-6.16-6.043l-.335 1.462Zm-6.1-1.462c-3.048.701-5.44 3.038-6.159 6.043l1.46.35c.583-2.44 2.53-4.355 5.035-4.931l-.336-1.462ZM14.831 21c0-1.464.001-2.485.107-3.255.102-.747.29-1.146.582-1.432l-1.05-1.071c-.623.61-.892 1.38-1.018 2.3-.123.895-.121 2.037-.121 3.458h1.5Zm5.491-6.868c-1.45 0-2.612-.002-3.522.118-.93.123-1.71.384-2.33.992l1.05 1.071c.293-.288.706-.474 1.476-.576.79-.104 1.834-.105 3.326-.105v-1.5Z"></path><path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M9 9h3m-3 3h5"></path>
+                        </svg>
+                        نقشه راه یادگیری به برنامه نویسی
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
