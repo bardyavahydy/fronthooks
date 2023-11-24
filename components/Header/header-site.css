@@ -97,6 +97,7 @@ button{
     padding-top: 1rem;
     padding-bottom: 1rem;
     backdrop-filter: blur(4rem);
+    z-index: 90;
 }
 
 .container-mobile-menuicon-logo, .desktop-logo__cross-svg, .menu__link--home, .indicator, .mobile-register, .container-desktop-user-panel-profile{
@@ -573,7 +574,13 @@ button{
     }
 }
 
-@media (max-width: 790px){
+@media (max-width: 1066px){
+    .container{
+        max-width: 78rem;
+    }
+}
+
+@media (max-width: 810px){
     *{
         cursor: default;
     }
