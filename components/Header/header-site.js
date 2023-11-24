@@ -45,7 +45,7 @@ template.innerHTML = `
                 <!-- menu items -->
                 <ul class="menu center">
                     <li class="menu__list">
-                        <img src="./imgs/indicator.svg" class="indicator" alt="indicator" data-location="index">
+                        <img src="../../imgs/indicator.svg" class="indicator" alt="indicator" data-location="index">
                         <a href="#" class="menu__link transition-color-3s menu__link--home align-items-center">
                             <svg class="ml-svg menu__svg" viewBox="0 0 22 22" fill="none" class="h-5 w-5">
                                 <path fill="currentColor" d="M20.04 9.719a.75.75 0 0 0-1.5 0h1.5Zm-14.58 0a.75.75 0 1 0-1.5 0h1.5Zm9.053 10.988-.172-.73.172.73Zm-5.026 0 .172-.73-.172.73Zm5.341-15.693-.532.529.532-.529Zm5.64 6.744a.75.75 0 1 0 1.064-1.057l-1.064 1.057ZM9.172 5.014l.532.529-.532-.529Zm-6.704 5.687a.75.75 0 1 0 1.064 1.057l-1.064-1.057Zm7.25 7.62-.737-.14.737.14Zm.02-.104.737.139-.737-.139Zm4.524 0-.737.139.737-.139Zm.02.103.737-.138-.737.138Zm-.29 2.232-.677-.322.677.322Zm-.794-.077a.75.75 0 0 0 1.354.645l-1.354-.645Zm-3.19.077-.677.322.677-.322Zm-.56.568a.75.75 0 0 0 1.354-.645l-1.354.645Zm1.913-4.677-.2-.723.2.723Zm1.278 0 .2-.723-.2.723Zm5.901-6.724v4.918h1.5V9.72h-1.5ZM5.46 14.637V9.72h-1.5v4.918h1.5Zm8.88 5.34a10.18 10.18 0 0 1-4.68 0l-.346 1.46a11.68 11.68 0 0 0 5.372 0l-.345-1.46Zm-4.68 0c-2.457-.58-4.2-2.79-4.2-5.34h-1.5c0 3.24 2.214 6.058 5.354 6.8l.345-1.46Zm5.026 1.46c3.14-.742 5.354-3.56 5.354-6.8h-1.5c0 2.55-1.743 4.76-4.2 5.34l.346 1.46Zm-.39-15.894 6.172 6.215 1.064-1.057-6.171-6.215-1.065 1.057ZM8.64 4.486 2.468 10.7l1.064 1.057 6.172-6.215-1.065-1.057Zm6.722 0c-.652-.657-1.193-1.204-1.68-1.577-.502-.387-1.035-.659-1.681-.659v1.5c.183 0 .397.064.768.348.387.298.847.758 1.528 1.445l1.065-1.057ZM9.704 5.543c.681-.687 1.14-1.147 1.528-1.445.37-.284.585-.348.768-.348v-1.5c-.646 0-1.178.272-1.682.659-.486.373-1.027.92-1.679 1.577l1.065 1.057Zm.752 12.916.019-.103L9 18.079l-.02.103 1.475.277Zm3.07-.103.018.103 1.475-.277-.02-.103-1.474.277Zm-.211 1.874-.117.245 1.354.645.117-.246-1.354-.644Zm-3.984.644.117.246 1.354-.645-.117-.245-1.354.644Zm4.213-2.415c.113.6.032 1.22-.23 1.77l1.355.645c.399-.837.52-1.78.35-2.692l-1.475.277Zm-4.563-.277a4.385 4.385 0 0 0 .35 2.692l1.354-.644a2.884 2.884 0 0 1-.23-1.771l-1.474-.277Zm2.58-1.017c.287-.08.59-.08.877 0l.401-1.445a3.138 3.138 0 0 0-1.678 0l.4 1.445ZM15 18.08a3.024 3.024 0 0 0-2.16-2.36l-.4 1.446c.554.154.978.614 1.086 1.19L15 18.08Zm-4.524.277a1.524 1.524 0 0 1 1.087-1.19l-.401-1.446A3.024 3.024 0 0 0 9 18.079l1.474.277Z"></path>
@@ -54,7 +54,7 @@ template.innerHTML = `
                         </a>
                     </li>
                     <li class="menu__list">
-                        <img src="./imgs/indicator.svg" class="indicator" alt="indicator" data-location="courses">
+                        <img src="../../imgs/indicator.svg" class="indicator" alt="indicator" data-location="courses">
                         <a href="#" class="menu__link transition-color-3s align-items-center">
                             <svg class="ml-svg menu__svg" viewBox="0 0 16 16" fill="none" class="h-5 w-5">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M14.667 11.16V3.113c0-.8-.654-1.393-1.447-1.326h-.04c-1.4.12-3.527.833-4.713 1.58l-.114.073a.739.739 0 0 1-.706 0l-.167-.1C6.293 2.6 4.173 1.893 2.773 1.78a1.312 1.312 0 0 0-1.44 1.327v8.053c0 .64.52 1.24 1.16 1.32l.194.027c1.446.193 3.68.926 4.96 1.626l.026.014c.18.1.467.1.64 0 1.28-.707 3.52-1.447 4.974-1.64l.22-.027c.64-.08 1.16-.68 1.16-1.32ZM8 3.66v10m-2.833-8h-1.5m2 2h-2"></path>
@@ -63,7 +63,7 @@ template.innerHTML = `
                         </a>
                     </li>
                     <li class="menu__list">
-                        <img src="./imgs/indicator.svg" class="indicator" alt="indicator" data-location="hired">
+                        <img src="../../imgs/indicator.svg" class="indicator" alt="indicator" data-location="hired">
                         <a href="#" class="menu__link transition-color-3s align-items-center">
                             <svg class="ml-svg menu__svg" viewBox="0 0 24 24" fill="none" class="h-5 w-5">
                                 <path stroke="currentColor" stroke-width="1.5" d="m15.875 19.487.18-.124c.566-.391.849-.587 1.101-.796a7.495 7.495 0 0 0 2.603-4.476c.056-.323.086-.664.144-1.346l.03-.353A17.996 17.996 0 0 0 19.906 9l-.036-.349a5.75 5.75 0 0 0-3.205-4.574 10.642 10.642 0 0 0-9.328 0A5.75 5.75 0 0 0 4.13 8.65L4.094 9a17.993 17.993 0 0 0-.029 3.391l.03.353c.06.682.089 1.023.145 1.346a7.495 7.495 0 0 0 2.603 4.476c.253.21.535.405 1.1.796l.18.124c.769.532 1.153.797 1.538.982a5.41 5.41 0 0 0 4.676 0c.385-.185.77-.45 1.537-.982Z"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m9.25 11.75 2 2 3.5-3.75"></path>
@@ -72,7 +72,7 @@ template.innerHTML = `
                         </a>
                     </li>
                     <li class="menu__list menu__list--contactUs">
-                        <img src="./imgs/indicator.svg" class="indicator" alt="indicator" data-location="contactUs">
+                        <img src="../../imgs/indicator.svg" class="indicator" alt="indicator" data-location="contactUs">
                         <span href="" class="menu__link transition-color-3s menu__link--contactUs align-items-center cursor-pointer">
                             <svg class="ml-svg menu__svg" viewBox="0 0 20 20" fill="none" class="h-5 w-5">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="m6.793 8.625 2.142 1.53a1.832 1.832 0 0 0 2.13 0l2.142-1.53M2.404 12.626a10.897 10.897 0 0 1 0-5.252 6.127 6.127 0 0 1 4.621-4.506l.379-.084a12 12 0 0 1 5.192 0l.379.084a6.127 6.127 0 0 1 4.62 4.506 10.897 10.897 0 0 1 0 5.252 6.127 6.127 0 0 1-4.62 4.506l-.379.084c-1.71.379-3.482.379-5.192 0l-.379-.084a6.127 6.127 0 0 1-4.62-4.506Z"></path>
@@ -265,7 +265,7 @@ class HeaderSite extends HTMLElement{
                 addClass(desktopRegisterLink, 'inactive')
                 addClass(containerDesktopUserPanelProfile, 'show')
                 addClass(mobileRegister, 'inactive')
-                if(window.innerWidth < 790) addClass(containerMobileUserPanel, 'show')
+                if(window.innerWidth < 810) addClass(containerMobileUserPanel, 'show')
                 usernameElm.innerText = user[1].username
                 userPhoneElm.innerText = e2p(user[1].userPhone)
                 userProfileLink.innerText = user[1].username
@@ -299,7 +299,7 @@ class HeaderSite extends HTMLElement{
         })
 
         contactUsListElm.addEventListener('click', () =>{
-            if(window.innerWidth < 790){
+            if(window.innerWidth < 810){
                 if(menuContactUs.style.height){
                     menuContactUs.style.height = null
                     this.removeActiveClass(menuContactUsArrow)
@@ -344,7 +344,8 @@ class HeaderSite extends HTMLElement{
         })
 
         for(const indicator of indicators){
-            if(window.innerWidth < 790 && location === indicator.getAttribute('data-location')){
+            if(window.innerWidth < 810 && location === indicator.getAttribute('data-location')){
+                console.log(location);
                 let menuLink = indicator.nextElementSibling
                 indicator.parentNode.classList.add('align-items-center')
                 indicator.classList.add('active')
