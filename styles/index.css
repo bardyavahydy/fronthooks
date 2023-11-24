@@ -171,6 +171,302 @@ button{
     -o-border-radius: 50%;
 }
 
-.mr-svg{
+.ml-svg{
     margin-left: .5rem;
+}
+
+.transition-bg-3s{
+    transition: background .3s;
+    -webkit-transition: background .3s;
+    -moz-transition: background .3s;
+    -ms-transition: background .3s;
+    -o-transition: background .3s;
+}
+
+.transition-color-3s{
+    transition: color .3s;
+    -webkit-transition: color .3s;
+    -moz-transition: color .3s;
+    -ms-transition: color .3s;
+    -o-transition: color .3s;
+}
+
+/* banner */
+
+.banner-svg-bg{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.total-container-banner{
+    margin: 12rem auto 11.2rem;
+    max-width: 99.2rem;
+}
+
+.banner-wrapper-right{
+    width: 42.45rem;
+}
+
+.container-event{
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+.container-event__title{
+    background: var(--color-primary-900);
+    font-weight: 300;
+    padding: .2rem .5rem;
+    border-radius: 2rem;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    -o-border-radius: 2rem;
+}
+
+.container-event__title:hover{
+    background: #334cb2;
+}
+
+.container-event__time{
+    color: var(--color-primary-900);
+    font-weight: 200;
+
+}
+
+.banner-title{
+    color: var(--color-secondary-900);
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1.6;
+    margin: 1.6rem 0 2rem;
+}
+
+.banner-desc{
+    color: #9ca3af;
+    font-size: 1.8rem;
+    font-weight: 300;
+    padding-bottom: .8rem;
+    border-bottom: .2rem solid #bec1f333;
+    margin-bottom: 2.8rem;
+}
+
+.container-banner-lets-go__link{
+    background: var(--color-primary-900);
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 500;
+    padding: 1.6rem 3.6rem;
+    box-shadow: 0 1rem 1.5rem -.3rem var(--color-primary-300),0 .4rem .6rem -.4rem var(--color-primary-300), 0rem .4rem 4.4rem 0rem #4A6DFF66;
+    border-radius: 4rem;
+    -webkit-border-radius: 4rem;
+    -moz-border-radius: 4rem;
+    -ms-border-radius: 4rem;
+    -o-border-radius: 4rem;
+}
+
+.container-banner-lets-go__link:hover{
+    background: var(--color-primary-800);
+}
+
+.container-banner-lets-go__student-info{
+    margin-right: 2.5rem;
+}
+
+.container-banner-lets-go__student-pics{
+    position: relative;
+    width: 10.2rem;
+    height: 4rem;
+}
+
+.container-banner-lets-go__student-pic{
+    position: absolute;
+    display: inline-block;
+    width: 4rem;
+    height: 4rem;
+    border: .2rem solid #fff;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.container-banner-lets-go__student-pic1{
+    background: url(../imgs/saheb.png)center/cover;
+    right: 0;
+    z-index: 8;
+} 
+
+.container-banner-lets-go__student-pic2{
+    background: url(../imgs/user3.jpeg)center/cover;
+    right: 2.8rem;
+    z-index: 7;
+} 
+
+.container-banner-lets-go__student-pic3{
+    background: url(../imgs/user1.jpeg)center/cover;
+    right: 5.6rem;
+    z-index: 6;
+} 
+
+.container-banner-lets-go__student-pic4{
+    background: url(../imgs/user2.jpeg)center/cover;
+    right: 8.2rem;
+    z-index: 5;
+    border-color: #f4f5f7;
+}
+
+.container-banner-lets-go__container-number-of-student{
+    color: var(--color-secondary-800);
+    font-size: 1.3rem;
+    font-weight: 200;
+    margin-top: .4rem;
+}
+
+.container-banner-lets-go__number-of-student{
+    color: var(--color-primary-900);
+    font-size: 1.4rem;
+}
+
+.container-banner-lets-go__svg{
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.container-banner-lets-go__arrow-svg{
+    width: 2.4rem;
+    height: 6.4rem;
+    margin-right: calc(100% - 2.4rem);
+}
+
+.container-banner__cover{
+    position: relative;
+    max-width: 44.64rem;
+    max-height: 44.64rem;
+}
+
+.container-banner__cover-filter{
+    position: absolute;
+    bottom: -.5rem;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 37%, #F4F5F7 93%);
+    height: 19.2rem;
+}
+
+.container-banner__cover-arrow-svg{
+    display: none;
+    color: rgb(209, 213, 219);
+    position: absolute;
+    left: 0;
+    bottom: -3.6rem;
+    width: 1.6rem;
+    height: 4.3rem;
+}
+
+@media (max-width: 1066px){
+    .banner-wrapper-right{
+        width: 34.1rem;
+    }
+
+    .banner-title{
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 810px){
+    *{
+        cursor: default;
+    }
+
+    .banner-svg-bg, .container-banner-lets-go__arrow-svg{
+        display: none;
+    }    
+
+    .total-container-banner{
+        flex-direction: column-reverse;
+    }
+
+    .container-banner__cover{
+        max-width: 48.4rem;
+        max-height: 48.4rem;
+    }
+
+    .banner-wrapper-right{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5rem;
+        text-align: center;
+    }
+
+    .banner-title{
+        font-size: 3rem;
+        margin-bottom: .8rem;
+    }
+
+    .banner-desc{
+        font-size: 1.2rem;
+        padding-bottom: 2.4rem;
+        margin-bottom: 1.6rem;
+    }
+
+    .container-banner-lets-go{
+        flex-direction: column;
+    }
+
+    .container-banner-lets-go__student-info{
+        margin-right: 0;
+    }
+
+    .container-banner-lets-go__link{
+        padding: 1rem 3.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .container-banner-lets-go__student-pics {
+        height: 3.2rem;
+    }
+
+    .container-banner-lets-go__student-pic{
+        width: 3.2rem;
+        height: 3.2rem;
+    }
+    
+    .container-banner-lets-go__student-pic2{
+        right: 2.4rem;
+    } 
+    
+    .container-banner-lets-go__student-pic3{
+        right: 4.8rem;
+    } 
+    
+    .container-banner-lets-go__student-pic4{
+        right: 7.2rem;
+    }
+
+    .container-banner-lets-go__container-number-of-student{
+        width: fit-content;
+        margin: .4rem auto 0;
+    }
+
+    .container-banner__cover-arrow-svg{
+        display: inline;
+    }
+}
+
+@media (max-width: 640px){
+    .banner-wrapper-right {
+        width: 24.3rem;
+    }
+
+    .banner-title{
+        font-size: 2.4rem;
+    }
+
+    .banner-wrapper-left{
+        margin: 0 5rem;
+    }
 }
