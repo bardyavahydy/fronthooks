@@ -1,6 +1,6 @@
-import { createCircleForBtn, addClass } from "../../js/funcs.js"
+import { addClass, removeClass, createCircleForBtn } from "../../js/funcs.js";
 import { getCookie } from "../../js/cookie.js"
-import { getAllUsers } from "../../js/HTTPreq.js"
+import { getAllData } from "../../js/HTTPreq.js"
 import { e2p } from "../../js/convertNumbers.js"
 
 let allUsers = null
@@ -269,27 +269,25 @@ class HeaderSite extends HTMLElement{
                 usernameElm.innerText = user[1].username
                 userPhoneElm.innerText = e2p(user[1].userPhone)
                 userProfileLink.innerText = user[1].username
-            }else{
-
             }
         }
         converAllUsersToArr()
 
 
         menuHamburger.addEventListener('click', () =>{
-            this.addActiveClass(overlay)
+            addClass(overlay, 'active')
             body.style.overflowY = 'hidden'
         })
 
         overlay.addEventListener('click', (event) =>{
             if(event.target === overlay) {
-                this.removeActiveClass(event.target);
+                removeClass(event.target, 'active');
                 body.style.overflowY = 'visible'
             }
         })
         
         crossElm.addEventListener('click', () =>{
-            this.removeActiveClass(overlay)
+            removeClass(overlay, 'active')
             body.style.overflowY = 'visible'
             if(menuContactUs.style.height) menuContactUs.style.height = null
         })
@@ -302,20 +300,20 @@ class HeaderSite extends HTMLElement{
             if(window.innerWidth < 810){
                 if(menuContactUs.style.height){
                     menuContactUs.style.height = null
-                    this.removeActiveClass(menuContactUsArrow)
+                    removeClass(menuContactUsArrow, 'active')
                 }
                 else{
                     menuContactUs.style.height =`${ menuContactUs.scrollHeight * 0.1}rem`
-                    this.addActiveClass(menuContactUsArrow)
+                    addClass(menuContactUsArrow, 'active')
                 }
             }else{
                 if(menuContactUs.classList.contains('active')){
-                    this.removeActiveClass(menuContactUs)
+                    removeClass(menuContactUs, 'active')
                     body.style.overflowY = 'visible'
                 }
                 else{
                     this.autoRemoveFromAnotherAlm()
-                    this.addActiveClass(menuContactUs)
+                    addClass(menuContactUs, 'active')
                     body.style.overflowY = 'hidden'
                 }
             }
@@ -336,16 +334,15 @@ class HeaderSite extends HTMLElement{
         })
         
         userProfile.addEventListener('click', () =>{
-            if(userProfileMenu.classList.contains('active')) this.removeActiveClass(userProfileMenu)
+            if(userProfileMenu.classList.contains('active')) removeClass(userProfileMenu, 'active')
             else{
                 this.autoRemoveFromAnotherAlm()
-                this.addActiveClass(userProfileMenu)
+                addClass(userProfileMenu, 'active')
             }
         })
 
         for(const indicator of indicators){
             if(window.innerWidth < 810 && location === indicator.getAttribute('data-location')){
-                console.log(location);
                 let menuLink = indicator.nextElementSibling
                 indicator.parentNode.classList.add('align-items-center')
                 indicator.classList.add('active')
@@ -353,10 +350,6 @@ class HeaderSite extends HTMLElement{
                 break
             }
         }
-    }
-
-    addActiveClass(elm){
-        elm.classList.add('active')
     }
 
     removeActiveClass(elm){
@@ -368,7 +361,7 @@ class HeaderSite extends HTMLElement{
     }
 
     async getAllUsersFromDB (){
-        if(isLogin) allUsers = await getAllUsers('allUsers.json')
+        if(isLogin) allUsers = await getAllData('allUsers')
         return allUsers
     }
 
@@ -376,6 +369,5 @@ class HeaderSite extends HTMLElement{
         return['location']
     }
 }
-
 
 export { HeaderSite }
