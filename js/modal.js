@@ -1,12 +1,14 @@
 const body = document.body
 
 const createModal = (message ,classes , bgColor) =>{
+    removeModal()
+
     let containerModal = document.createElement('div')
     containerModal.className = 'center container-modal'
     containerModal.style.animation = 'modalAnimation 10s linear'
 
     let tickElmModal = document.createElement('i')
-    tickElmModal.className = `${classes} mr-svg`
+    tickElmModal.className = `${classes} ml-svg`
     tickElmModal.style.background = bgColor
     tickElmModal.style.animation = 'modalIconAnimation .5s linear'
     if(window.innerWidth < 370) tickElmModal.style.display = 'none'
@@ -31,7 +33,7 @@ const createModal = (message ,classes , bgColor) =>{
 const removeModal = () =>{
     if(document.querySelector('.container-modal')){
         const containerModal = document.querySelector('.container-modal')
-        containerModal.style.animation = ''
+        containerModal.remove()
     }
 }
 
