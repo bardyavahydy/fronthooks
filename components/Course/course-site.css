@@ -156,7 +156,13 @@ button{
 }
 
 .container-course__container-number-of-liked-course{
+    cursor: pointer;
     color: #f43f53;
+}
+
+.container-course__container-number-of-liked-course:hover{
+    background: #f43f53;
+    color: #fff;
 }
 
 .container-course__container-number-of-course{
@@ -166,6 +172,10 @@ button{
 .container-course__liked-course-svg, .container-course__number-of-course-svg, .container-course__course-time-svg, .container-course__course-status-svg{
     width: 1.6rem;
     height: 1.6rem;
+}
+
+.container-course__container-number-of-liked-course.liked .container-course__liked-course-svg{
+    fill: #f43f53;
 }
 
 .container-course__infos{
@@ -302,6 +312,30 @@ button{
 
 .container-course__show-course-link.active{
     display: inline-block;
+}
+
+/* circle */
+
+.circle{
+    position: absolute;
+    background: rgba(183, 197, 255, .3);
+    animation: circleElm .2s linear;
+    -webkit-animation: circleElm .2s linear;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+@keyframes circleElm{
+    0%{
+        scale: 0;
+    }
+
+    100%{
+        scale: 1;
+    }
 }
 
 @media (max-width: 1090px){
