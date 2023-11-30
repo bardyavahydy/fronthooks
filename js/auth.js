@@ -3,7 +3,7 @@
 import { p2e, e2p } from "./convertNumbers.js"
 import { addClass, createCircleForBtn, removeClass } from "./funcs.js"
 import { createModal, removeModal } from "./modal.js"
-import { getAllUsers, postUser } from "./HTTPreq.js"
+import { getAllData, postData } from "./HTTPreq.js"
 import { setCookie, getCookie } from "./cookie.js"
 
 const $ = document
@@ -114,7 +114,6 @@ const correctUserInformation = (message) =>{
 }
 
 const showModalForConfigCode = (persianCode) =>{
-    removeModal()
     createModal(`لطفا کد تایید را وارد کنید: ${persianCode}`, 'fa fa-check', '#00c073')
     removeClass(loading, 'active')
     countDown(90)
@@ -143,7 +142,6 @@ const pointerEventsDigitsInput = () =>{
 
 const creatingAReverificationCode = () =>{
     addActiveClassToLoadingElmAndAnotherElm(btnConfirm, 'none')
-    removeModal()
     code = createCode()
     setTimeout(() => {
         persianCode = e2p(code)
@@ -166,7 +164,7 @@ const notFocusEmptyInput = (digitInput, nextDigitInput) =>{
 
 const getAllUsersFromDB = async (userInput) =>{
     try{
-        let allUsers = await getAllUsers('allUsers.json')
+        let allUsers = await getAllData('allUsers')
         allUsersArr = Object.entries(allUsers)
         
         if(isNaN(userInput)){
@@ -193,7 +191,6 @@ const getAllUsersFromDB = async (userInput) =>{
 
 const goToIndexPage = () =>{
     createModal('به فرانت هوکس خوش آمدید', 'fa fa-check', '#00c073')
-    removeModal()
     setTimeout(() => {
         location.assign('./index.html')
         digits.forEach(digitInput => emptyInputValue(digitInput))
@@ -247,7 +244,7 @@ const checkNewUserData = () =>{
 
 const submitNewData = () =>{
     addActiveClassToLoadingElmAndAnotherElm(btnSubmitInformation, 'inactive')
-    postUser(userData)
+    postData(userData, 'allUsers')
     emptyInputValue(inputElm)
     goToIndexPage()
     emptyInputValue(usernameInputElm)
@@ -273,11 +270,9 @@ digits.forEach(digitInput =>{
         
         if(randomCode === +codeEnteredByTheUser){
             clearInterval(clearCountDown)
-            removeModal()
             addActiveClassToLoadingElmAndAnotherElm(btnConfirm, 'none')
             getAllUsersFromDB(inputElm.value)   
         }else if(String(codeEnteredByTheUser).length == 6 && randomCode !== +codeEnteredByTheUser){
-            removeModal()
             createModal('کد تایید را صحیح وارد نکرده‌اید!!', 'fa fa-close', '#ef4444')
             digits.forEach(digitInput => emptyInputValue(digitInput))
             addClass(textCountDown, 'inactive')        
@@ -301,11 +296,9 @@ btnRegister.addEventListener('click', event =>{
     createCircleForBtn(event, btnRegister, btnRegister.offsetWidth)
 
     if(inputElm.value){
-        removeModal()
         if(isNaN(inputElm.value)) validateEmail()
         else validatePhoneNumber()
     }else{
-        removeModal()
         createModal('لطفا شماره موبایل یا ایمیل خود را وارد کنید .', 'fa fa-close', '#ef4444') 
     } 
 })
@@ -313,10 +306,7 @@ btnRegister.addEventListener('click', event =>{
 userEmailInput.addEventListener('keyup', removeModal)
 
 secondFormSvgBack.addEventListener('click', () =>{
-    if($.querySelector('.container-modal')){
-        removeModal()
-        createModal('لطفا چند لحظه صبر کند .', 'fa fa-close', '#ef4444')
-    }
+    if($.querySelector('.container-modal')) createModal('لطفا چند لحظه صبر کند .', 'fa fa-close', '#ef4444')
     else{
         removeClass(containerFirstForm, 'inactive')
         removeClass(containerSecondForm, 'active')
