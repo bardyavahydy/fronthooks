@@ -1,5 +1,14 @@
-import { sp } from "../../js/convertNumbers.js"
-import { addClass } from "../../js/funcs.js"
+'use strict'
+
+import { e2p, p2e, sp } from "../../js/convertNumbers.js";
+import { addClass, removeClass, createCircleForBtn } from "../../js/funcs.js";
+import { getCookie } from "../../js/cookie.js";
+import { createModal } from "../../js/modal.js";
+import { getAllData, postData, putData, deleteData } from "../../js/HTTPreq.js";
+
+let tokenObj = getCookie('accessToken')
+let { isLogin, userToken } = tokenObj
+let favCourses = null
 
 let template = document.createElement('template')
 template.innerHTML = `
@@ -9,10 +18,10 @@ template.innerHTML = `
             <img src="" alt="" class="container-course__img Hfull-Vful">
             <div class="container-course__like-and-number-course space-between">
 
-                <div class="container-course__container-number-of-liked-course align-items-center">
+                <div class="container-course__container-number-of-liked-course transition-bg-3s align-items-center">
                     <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true" class="container-course__liked-course-svg ml-svg" height="1em">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path>
-                        <span class="container-course__number-of-liked-course-text">۰</span>
+                        <span class="container-course__number-of-liked-course-text"></span>
                     </svg>
                 </div>
 
@@ -80,24 +89,132 @@ class CourseSite extends HTMLElement{
     }
 
     connectedCallback(){
+        let courseTable = null
         const courseImg = this.shadowRoot.querySelector('.container-course__img')
+        const containerNumberOfLikedCourse = this.shadowRoot.querySelector('.container-course__container-number-of-liked-course')
+        const numberOfLikedCourse = this.shadowRoot.querySelector('.container-course__number-of-liked-course-text')
         const courseTitle = this.shadowRoot.querySelector('.container-course__link-title')
         const courseStatus = this.shadowRoot.querySelector('.container-course__course-status')
         const containerPriceAndOffElm = this.shadowRoot.querySelector('.container-course__container-price-off')
         const coursePriceWithoutOff = this.shadowRoot.querySelector('.container-course__price-without-off')
         const courseDiscountPercent = this.shadowRoot.querySelector('.container-course__discount-percent')
         const coursePrice = this.shadowRoot.querySelector('.container-course__price')    
+        const courseRegisterBtn = this.shadowRoot.querySelector('.container-course__register-btn')
 
         courseImg.src = this.getAttribute('imgcourse-src')
         courseImg.alt = 'course-img'
         courseTitle.innerText = this.getAttribute('course-title')
         courseStatus.innerText = this.getAttribute('course-status')
         coursePrice.innerText = sp(this.getAttribute('course-price'))  
+        courseTable = this.getAttribute('course-table')
         
         if(this.getAttribute('discount-percent')){
             coursePriceWithoutOff.innerText = sp(+this.getAttribute('course-price-without-off'))
             courseDiscountPercent.innerText = `${sp(this.getAttribute('discount-percent'))}%`
         }else addClass(containerPriceAndOffElm, 'inactive')
+
+        const runFuncs = async () =>{
+            const likedCourseID = await this.getCourseTableData(courseTable, numberOfLikedCourse, courseTitle)
+            favCourses = await this.getFavCourses(courseTable)
+            this.setLikedClasses(containerNumberOfLikedCourse, favCourses, courseTable)
+
+            containerNumberOfLikedCourse.addEventListener('click', (event) =>{
+                createCircleForBtn(event, event.target, event.target.offsetWidth)
+                if(isLogin){
+                    if(!containerNumberOfLikedCourse.classList.contains('liked')){
+                        numberOfLikedCourse.innerText = e2p((+p2e(numberOfLikedCourse.innerText) + 1))
+                        addClass(containerNumberOfLikedCourse, 'liked')
+                        createModal('مرسی بابت لایکتون', 'fa fa-check', '#00c073')
+
+    
+                        putData({ numberLike: numberOfLikedCourse.innerText, courseTitle: courseTitle.innerText }, courseTable, likedCourseID)
+
+                        this.putNewCourseLikedInDB(courseTable, favCourses)
+                    }else{
+                        numberOfLikedCourse.innerText = e2p((+p2e(numberOfLikedCourse.innerText) - 1))
+                        removeClass(containerNumberOfLikedCourse, 'liked')
+                        createModal('لایکتون برداشته شده', 'fa fa-close', '#ef4444')
+
+                        putData({ numberLike: numberOfLikedCourse.innerText, courseTitle: courseTitle.innerText }, courseTable, likedCourseID)
+
+                        this.removeCourseLikedFromDB(userToken, courseTable, favCourses)
+                    }
+                }else{
+                    createModal('لطفا وارد حساب کاربری خود شوید .', 'fa fa-close', '#ef4444')
+                }
+            })
+    
+            courseRegisterBtn.addEventListener('click', function(event){
+                createCircleForBtn(event, this, this.offsetWidth)
+                if(isLogin){
+    
+                }else{
+                    createModal('لطفا ابتدا وارد حساب کاربری خود شوید .', 'fa fa-close', '#ef4444')
+                    setTimeout(() => location.href = './auth.html' , 3000)
+                }
+            })
+        }
+        runFuncs()       
+    }
+
+    setLikedClasses(containerNumberOfLikedCourse, favCourses, courseTable){
+        for(let likeId in favCourses){
+            if(favCourses[likeId][courseTable] === 'liked') addClass(containerNumberOfLikedCourse, 'liked')
+        }
+    }
+
+    putNewCourseLikedInDB(courseTable, favCourses){
+        for(let likeId in favCourses){
+            for(let prop in favCourses[likeId]){
+                if(courseTable === prop) putData({ [courseTable]: 'liked' }, userToken, likeId)
+            }
+        }
+    }
+
+    removeCourseLikedFromDB(userToken, courseTable, favCourses){
+        for(let likeId in favCourses){
+            for(let prop in favCourses[likeId]){
+                if(courseTable === prop) deleteData(userToken, likeId)
+            }
+        }
+    }
+    
+    async getCourseTableData(courseTable, numberOfLikedCourse, courseTitle){
+        let likedCourseID = null
+        let courseTableData = await getAllData(courseTable)
+        
+        if(courseTableData){
+            for(let courseId in courseTableData){
+                likedCourseID = courseId
+                numberOfLikedCourse.innerText = courseTableData[courseId].numberLike
+            }
+        }else{
+            likedCourseID = await this.setFirstCourserTable(numberOfLikedCourse, courseTitle, likedCourseID, courseTable)
+        }
+        return likedCourseID
+    }
+    
+    async setFirstCourserTable(numberOfLikedCourse, courseTitle, likedCourseID, courseTable){
+        numberOfLikedCourse.innerText = '۰'
+        await postData({ numberLike: numberOfLikedCourse.innerText, courseTitle: courseTitle.innerText }, courseTable)
+        
+        let courseTableData = await getAllData(courseTable)
+        for(let courseId in courseTableData) likedCourseID = courseId
+        return likedCourseID
+        
+    }
+
+    async getFavCourses(courseTable){
+        let favCoursesObj = await getAllData(userToken)
+
+        if(!favCoursesObj) favCoursesObj = await this.setFavCoursesTable(courseTable)
+        return favCoursesObj
+    }
+
+    async setFavCoursesTable(courseTable){
+        await postData({[courseTable]: 'notLiked'}, userToken)
+        let favCoursesObj = await getAllData(userToken)
+        return favCoursesObj
     }
 
     static observedAttributes(){
