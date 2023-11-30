@@ -487,6 +487,119 @@ button{
     max-width: 31rem !important;
 } 
 
+/* circle */
+
+.circle{
+    position: absolute;
+    background: rgba(183, 197, 255, .3);
+    animation: circleElm .2s linear;
+    -webkit-animation: circleElm .2s linear;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+/* modal  */
+
+.container-modal{
+    overflow: hidden;
+    background-color: #fff;
+    position: fixed;
+    z-index: 99;
+    top: -7rem;
+    right: 50%;
+    width: fit-content;
+    height: fit-content;
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    transform: translateX(50%);
+    -webkit-transform: translateX(50%);
+    -moz-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    -o-transform: translateX(50%);
+}
+
+.fa-check, .fa-close{
+    display: inline-block;
+    color: #fff;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.container-modal__message-modal{
+    font-size: 1.4rem;
+    font-weight: 200;
+} 
+
+.container-modal__line{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: .4rem;
+}
+
+@keyframes modalAnimation{
+    0%{
+        top: -4rem;
+    }
+
+    5%{
+        top: .5rem;
+    }
+
+    99%{
+        top: .5rem;
+    }
+
+    100%{
+        top: -4rem;
+    }
+}
+
+@keyframes modalIconAnimation{
+    0%{
+        scale: 0;
+    }
+
+    100%{
+        scale: 1;
+    }
+}
+
+@keyframes modalLineAnimation{
+    0%{
+        left: 0;
+        right: 0;
+    }
+
+    100%{
+        right: 50%;
+        left: 50%;
+    }
+}
+
+@keyframes circleElm{
+    0%{
+        scale: 0;
+    }
+
+    100%{
+        scale: 1;
+    }
+}
+
 @keyframes featuresCoursesAnimation {
     0%{
         scale: 1;
