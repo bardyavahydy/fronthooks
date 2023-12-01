@@ -8,7 +8,6 @@ import { getAllData, postData, putData, deleteData } from "../../js/HTTPreq.js";
 
 let tokenObj = getCookie('accessToken')
 let { isLogin, userToken } = tokenObj
-let favCourses = null
 
 let template = document.createElement('template')
 template.innerHTML = `
@@ -61,6 +60,7 @@ template.innerHTML = `
 
         <div class="container-course__register-btn-and-price space-between">
             <button class="container-course__register-btn transition-bg-3s">ثبت نام در دوره</button>
+            <a href="#" class="container-course__continue-the-order-link transition-bg-3s">ادامه سفارش</a>
             <div class="container-course__price-infos">
                 <div class="container-course__container-price-off">
                     <del class="container-course__price-without-off"></del>
@@ -90,16 +90,20 @@ class CourseSite extends HTMLElement{
 
     connectedCallback(){
         let courseTable = null
-        const courseImg = this.shadowRoot.querySelector('.container-course__img')
-        const containerNumberOfLikedCourse = this.shadowRoot.querySelector('.container-course__container-number-of-liked-course')
-        const numberOfLikedCourse = this.shadowRoot.querySelector('.container-course__number-of-liked-course-text')
-        const courseTitle = this.shadowRoot.querySelector('.container-course__link-title')
-        const courseStatus = this.shadowRoot.querySelector('.container-course__course-status')
-        const containerPriceAndOffElm = this.shadowRoot.querySelector('.container-course__container-price-off')
-        const coursePriceWithoutOff = this.shadowRoot.querySelector('.container-course__price-without-off')
-        const courseDiscountPercent = this.shadowRoot.querySelector('.container-course__discount-percent')
-        const coursePrice = this.shadowRoot.querySelector('.container-course__price')    
-        const courseRegisterBtn = this.shadowRoot.querySelector('.container-course__register-btn')
+        const $ = this.shadowRoot
+        const courseImg = $.querySelector('.container-course__img')
+        const containerNumberOfLikedCourse = $.querySelector('.container-course__container-number-of-liked-course')
+        const numberOfLikedCourse = $.querySelector('.container-course__number-of-liked-course-text')
+        const courseTitle = $.querySelector('.container-course__link-title')
+        const courseStatus = $.querySelector('.container-course__course-status')
+        const containerRegisterBtnAndPrice = $.querySelector('.container-course__register-btn-and-price')
+        const containerPriceAndOffElm = $.querySelector('.container-course__container-price-off')
+        const coursePriceWithoutOff = $.querySelector('.container-course__price-without-off')
+        const courseDiscountPercent = $.querySelector('.container-course__discount-percent')
+        const coursePrice = $.querySelector('.container-course__price')    
+        const courseRegisterBtn = $.querySelector('.container-course__register-btn')
+        const continueOrderLinkBtn = $.querySelector('.container-course__continue-the-order-link')
+        const showCourseLink = $.querySelector('.container-course__show-course-link')
 
         courseImg.src = this.getAttribute('imgcourse-src')
         courseImg.alt = 'course-img'
@@ -109,14 +113,16 @@ class CourseSite extends HTMLElement{
         courseTable = this.getAttribute('course-table')
         
         if(this.getAttribute('discount-percent')){
-            coursePriceWithoutOff.innerText = sp(+this.getAttribute('course-price-without-off'))
+            coursePriceWithoutOff.innerText = sp(this.getAttribute('course-price-without-off'))
             courseDiscountPercent.innerText = `${sp(this.getAttribute('discount-percent'))}%`
         }else addClass(containerPriceAndOffElm, 'inactive')
 
         const runFuncs = async () =>{
             const likedCourseID = await this.getCourseTableData(courseTable, numberOfLikedCourse, courseTitle)
-            favCourses = await this.getFavCourses(courseTable)
+            let favCourses = await this.getFavCourses(courseTable)
+            let selectedCourses = await this.getSelectedCourse()
             this.setLikedClasses(containerNumberOfLikedCourse, favCourses, courseTable)
+            this.setActiveAndInactiveToLinkBtn(selectedCourses, courseRegisterBtn, continueOrderLinkBtn, showCourseLink, containerRegisterBtnAndPrice, courseTitle)
 
             containerNumberOfLikedCourse.addEventListener('click', (event) =>{
                 createCircleForBtn(event, event.target, event.target.offsetWidth)
@@ -126,7 +132,6 @@ class CourseSite extends HTMLElement{
                         addClass(containerNumberOfLikedCourse, 'liked')
                         createModal('مرسی بابت لایکتون', 'fa fa-check', '#00c073')
 
-    
                         putData({ numberLike: numberOfLikedCourse.innerText, courseTitle: courseTitle.innerText }, courseTable, likedCourseID)
 
                         this.putNewCourseLikedInDB(courseTable, favCourses)
@@ -144,10 +149,19 @@ class CourseSite extends HTMLElement{
                 }
             })
     
-            courseRegisterBtn.addEventListener('click', function(event){
-                createCircleForBtn(event, this, this.offsetWidth)
+            courseRegisterBtn.addEventListener('click', (event) =>{
+                createCircleForBtn(event, event.target, event.target.offsetWidth)//this => event
                 if(isLogin){
-    
+                    const selectedCourseInfo = {
+                        courseTitle: courseTitle.innerText,
+                        imgCourse: courseImg.src,
+                        price: this.getAttribute('course-price'),
+                        coursePriceWithoutOff: this.getAttribute('course-price-without-off'),
+                        courseDiscountPercent: this.getAttribute('discount-percent'),
+                        purchaseStatus: 'not purchased'
+                    }
+                    postData(selectedCourseInfo, `${userToken}selectedCourseUser`)
+                    this.addActiveAndInactiveClasses(courseRegisterBtn, continueOrderLinkBtn)                
                 }else{
                     createModal('لطفا ابتدا وارد حساب کاربری خود شوید .', 'fa fa-close', '#ef4444')
                     setTimeout(() => location.href = './auth.html' , 3000)
@@ -166,7 +180,7 @@ class CourseSite extends HTMLElement{
     putNewCourseLikedInDB(courseTable, favCourses){
         for(let likeId in favCourses){
             for(let prop in favCourses[likeId]){
-                if(courseTable === prop) putData({ [courseTable]: 'liked' }, userToken, likeId)
+                if(courseTable === prop) putData({ [courseTable]: 'liked' }, `${userToken}likedCourseUser`, likeId)
             }
         }
     }
@@ -174,9 +188,28 @@ class CourseSite extends HTMLElement{
     removeCourseLikedFromDB(userToken, courseTable, favCourses){
         for(let likeId in favCourses){
             for(let prop in favCourses[likeId]){
-                if(courseTable === prop) deleteData(userToken, likeId)
+                if(courseTable === prop) deleteData(`${userToken}likedCourseUser`, likeId)
             }
         }
+    }
+
+    setActiveAndInactiveToLinkBtn(selectedCourses, courseRegisterBtn, continueOrderLinkBtn, showCourseLink, containerRegisterBtnAndPrice, courseTitle){
+        if(selectedCourses){
+            for(let selectedId in selectedCourses){
+                if(selectedCourses[selectedId].courseTitle === courseTitle.innerText){
+                    if(selectedCourses[selectedId].purchaseStatus === 'not purchased'){
+                        this.addActiveAndInactiveClasses(courseRegisterBtn, continueOrderLinkBtn)
+                    }else if(selectedCourses[selectedId].purchaseStatus === 'bought'){
+                        this.addActiveAndInactiveClasses(containerRegisterBtnAndPrice, showCourseLink)
+                    }
+                }
+            }
+        }
+    }
+
+    addActiveAndInactiveClasses(elm1, elm2){
+        addClass(elm1, 'inactive')
+        addClass(elm2, 'active')    
     }
     
     async getCourseTableData(courseTable, numberOfLikedCourse, courseTitle){
@@ -205,22 +238,26 @@ class CourseSite extends HTMLElement{
     }
 
     async getFavCourses(courseTable){
-        let favCoursesObj = await getAllData(userToken)
+        let favCoursesObj = await getAllData(`${userToken}likedCourseUser`)
 
         if(!favCoursesObj) favCoursesObj = await this.setFavCoursesTable(courseTable)
         return favCoursesObj
     }
 
     async setFavCoursesTable(courseTable){
-        await postData({[courseTable]: 'notLiked'}, userToken)
-        let favCoursesObj = await getAllData(userToken)
+        await postData({[courseTable]: 'notLiked'}, `${userToken}likedCourseUser`)
+        let favCoursesObj = await getAllData(`${userToken}likedCourseUser`)
         return favCoursesObj
+    }
+
+    async getSelectedCourse(){
+        let selectedCourses = await getAllData(`${userToken}selectedCourseUser`)
+        return selectedCourses
     }
 
     static observedAttributes(){
         return['imgcourse-src', 'course-title', 'course-status', 'course-price', 'discount-percent', 'course-price-without-off']
     }
 }
-
 
 export { CourseSite }
