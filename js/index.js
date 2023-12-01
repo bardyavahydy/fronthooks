@@ -1,6 +1,6 @@
 'use strict'
 
-import { createCircleForBtn } from "../../js/funcs.js";
+import { createCircleForBtn } from "./funcs.js";
 import { HeaderSite } from "../components/Header/header-site.js";
 import { CourseSite } from "../components/Course/course-site.js";
 
