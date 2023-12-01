@@ -96,6 +96,10 @@ button{
     -o-transition: color .3s;
 }
 
+.inactive{
+    display: none;
+}
+
 /* course */
 
 .container-course{
@@ -227,11 +231,7 @@ button{
     margin-right: 1rem;
 }
 
-.container-course__register-btn-and-price.inactive{
-    display: none;
-}
-
-.container-course__register-btn{
+.container-course__register-btn, .container-course__continue-the-order-link{
     background-color: var(--color-primary-900);
     box-shadow: 0 10px 15px -3px rgb( 183,197,255 ) ,0 4px 6px -4px rgb( 183,197,255 );
     color: #fff;
@@ -249,7 +249,7 @@ button{
     background: var(--color-primary-800);
 }
 
-.container-course__container-price-off.inactive{
+.container-course__continue-the-order-link{
     display: none;
 }
 
@@ -310,7 +310,7 @@ button{
     color: var(--color-primary-900);
 }
 
-.container-course__show-course-link.active{
+.container-course__show-course-link.active, .container-course__continue-the-order-link.active{
     display: inline-block;
 }
 
