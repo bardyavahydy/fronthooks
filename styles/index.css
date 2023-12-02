@@ -487,6 +487,32 @@ button{
     max-width: 31rem !important;
 } 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* footer */
+
+.footer-section{
+    background: #e5e7eb;
+    color: var(--color-secondary-600);
+    padding: 3.2rem 1.6rem;
+    border-radius: 2.5rem;
+    -webkit-border-radius: 2.5rem;
+    -moz-border-radius: 2.5rem;
+    -ms-border-radius: 2.5rem;
+    -o-border-radius: 2.5rem;
+}
+
 /* circle */
 
 .circle{
@@ -644,7 +670,7 @@ button{
 
 @media (max-width: 810px){
     *{
-        cursor: default;
+        cursor: default !important;
     }
 
     .banner-svg-bg, .container-banner-lets-go__arrow-svg{
