@@ -1,0 +1,270 @@
+/* css reset */
+
+*, *::after, *::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+    font-family: vazir;
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    display: inline-block;
+    text-decoration: none;
+}
+
+button{
+    outline: none;
+    border: none;
+}
+
+/* helper classes */
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.space-between{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.align-items-center{
+    display: flex;
+    align-items: center;
+}
+
+.Hfull-Vful{
+    width: 100%;
+    height: 100%;
+}
+
+.container{
+    max-width: 128rem;
+    margin: 0 auto;
+}
+
+.padding-container{
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.border-radius-circle{
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.ml-svg{
+    margin-left: .5rem;
+}
+
+.transition-bg-3s{
+    transition: background .3s;
+    -webkit-transition: background .3s;
+    -moz-transition: background .3s;
+    -ms-transition: background .3s;
+    -o-transition: background .3s;
+}
+
+.transition-color-3s{
+    transition: color .3s;
+    -webkit-transition: color .3s;
+    -moz-transition: color .3s;
+    -ms-transition: color .3s;
+    -o-transition: color .3s;
+}
+
+/* footer */
+
+.container-footer{
+    display: flex;
+    justify-content: space-between;
+    max-width: 128rem;
+    margin: 0 auto;
+}
+
+.container-footer a{
+    color: var(--color-secondary-600);
+}
+
+.container-introducing-myself{
+    max-width: 46.6rem;
+}
+
+.container-introducing-myself__title{
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1.6rem;
+}
+
+.container-introducing-myself__title strong{
+    font-weight: 900;
+}
+
+.container-introducing-myself__desc, .container-introducing-myself__desc-links{
+    font-size: 1.4rem;
+    font-weight: 300;
+    text-align: justify;
+}
+
+.container-introducing-myself__desc strong{
+    font-weight: 700;
+}
+
+.container-introducing-myself__desc-links{
+    margin-bottom: 1.6rem;
+}
+
+.container-introducing-myself__desc-link{
+    color: #2563eb !important;
+}
+
+.container-ways-of-communication__links{
+    width: 4rem;
+    height: 4rem;
+}
+
+.container-ways-of-communication__links:hover{
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.container-ways-of-communication__svgs{
+    width: 2.4rem;
+    height: 2.4rem;
+    transition: .3s ease-in-out;
+    -webkit-transition: .3s ease-in-out;
+    -moz-transition: .3s ease-in-out;
+    -ms-transition: .3s ease-in-out;
+    -o-transition: .3s ease-in-out;
+}
+
+.container-ways-of-communication__links:hover .container-ways-of-communication__insta-link-svg{
+    fill: linear-gradient(45deg, #FFDC80, #FCAF45, #F77737, #F56040, #FD1D1D, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
+    fill: #E1306C;
+} 
+
+.container-ways-of-communication__links:hover .container-ways-of-communication__linkedin-link-svg{
+    fill: #00A0DC;
+} 
+
+.container-ways-of-communication__links:hover .container-ways-of-communication__github-link-svg{
+    fill: #333;
+} 
+
+.container-ways-of-communication__links:hover .container-ways-of-communication__telegram-link-svg{
+    fill: #0088CC;
+} 
+ 
+.container-ways-of-communication__links:hover .container-ways-of-communication__youtube-link-svg{
+    fill: #CD201F;
+} 
+
+.container-sections-of-the-site-links{
+    display: flex;
+    justify-content: space-between;
+    width: 48rem;
+}
+
+.sections-of-the-site-links__title, .education-courses__title{
+    color: var(--color-secondary-700);
+    font-size: 2.2rem;
+    font-weight: 300;
+    margin-bottom: 1.6rem;
+}
+
+.footer-list-item{
+    position: relative;
+}
+
+.footer-list-item::before{
+    content: '';
+    background: var(--color-secondary-700);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: .5rem;
+    height: .5rem;
+    transform: translateY(50%);
+    -webkit-transform: translateY(50%);
+    -moz-transform: translateY(50%);
+    -ms-transform: translateY(50%);
+    -o-transform: translateY(50%);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.footer-link{
+    font-size: 1.5rem;
+    font-weight: 200;
+    padding: .8rem 1.4rem 0 .8rem;
+}
+
+.footer-link:hover{
+    color: #3b82f6;
+}
+
+.footer-copy-right{
+    font-weight: 300;
+    width: fit-content;
+    margin: 7rem auto 0;
+    text-align: center;
+}
+
+@media (max-width: 1090px){
+    .container-sections-of-the-site-links{
+        flex-direction: column;
+        width: fit-content;
+    }
+
+    .sections-of-the-site-links{
+        margin-bottom: 2rem;
+    }
+
+    .sections-of-the-site-links__title, .education-courses__title{
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 810px){
+    *{
+        cursor: default !important;
+    }
+
+    .container-footer{
+        flex-direction: column;
+    }
+
+    .container-introducing-myself {
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .container-ways-of-communication{
+        max-width: 45rem;
+        margin: 0 auto;
+    }
+
+    .container-sections-of-the-site-links{
+        margin-bottom: 2rem;
+    }
+
+    .footer-copy-right{
+        margin: 4rem auto 0;
+    }
+}
