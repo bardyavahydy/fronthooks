@@ -344,6 +344,12 @@ button{
     }
 }
 
+@media (max-width: 810px){
+    *{
+        cursor: default !important;
+    }
+}
+
 @media (max-width: 500px){
     .container-course{
         max-width: 100%;
