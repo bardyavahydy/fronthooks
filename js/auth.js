@@ -200,7 +200,7 @@ const goToIndexPage = () =>{
 const existenceOfDataInTheDBHandler = (accessToken) =>{
     goToIndexPage()
     emptyInputValue(inputElm)
-    setCookie('accessToken', accessToken)
+    setCookie('accessToken', accessToken, 10)
 }
 
 const noDataInTheDBHandler = (elm) =>{
