@@ -238,15 +238,25 @@ class CourseSite extends HTMLElement{
     }
 
     async getFavCourses(courseTable){
+        let favCourseArr = null
         let favCoursesObj = await getAllData(`${userToken}likedCourseUser`)
 
-        if(!favCoursesObj) favCoursesObj = await this.setFavCoursesTable(courseTable)
+        if(!favCoursesObj) favCoursesObj = await this.setFavCoursesTable(courseTable, favCoursesObj)
+        else if(favCoursesObj){
+            favCourseArr = Object.entries(favCoursesObj)
+            let favCourseArrFirstIndex = favCourseArr.map(item => item[1])
+
+            let hasCourseTable = favCourseArrFirstIndex.every(item => Object.keys(item)[0] !== courseTable)
+
+            if(hasCourseTable) favCoursesObj = await this.setFavCoursesTable(courseTable, favCoursesObj)
+
+        }
         return favCoursesObj
     }
 
-    async setFavCoursesTable(courseTable){
+    async setFavCoursesTable(courseTable, favCoursesObj){
         await postData({[courseTable]: 'notLiked'}, `${userToken}likedCourseUser`)
-        let favCoursesObj = await getAllData(`${userToken}likedCourseUser`)
+        favCoursesObj = await getAllData(`${userToken}likedCourseUser`)
         return favCoursesObj
     }
 
