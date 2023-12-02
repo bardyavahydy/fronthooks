@@ -1,6 +1,6 @@
-const setCookie = (cookieName, cookieValue) =>{
+const setCookie = (cookieName, cookieValue, expDay) =>{
     let now = new Date()
-    now.setTime(now.getTime() + (10 * 24 * 60 * 60 * 1000))
+    now.setTime(now.getTime() + (expDay * 24 * 60 * 60 * 1000))
     document.cookie = `${cookieName}=${cookieValue}; path=/; expires=${now}`
 }
 
