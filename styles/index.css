@@ -506,11 +506,8 @@ button{
     background: #e5e7eb;
     color: var(--color-secondary-600);
     padding: 3.2rem 1.6rem;
-    border-radius: 2.5rem;
-    -webkit-border-radius: 2.5rem;
-    -moz-border-radius: 2.5rem;
-    -ms-border-radius: 2.5rem;
-    -o-border-radius: 2.5rem;
+    border-top-right-radius: 2.5rem;
+    border-top-left-radius: 2.5rem;
 }
 
 /* circle */
