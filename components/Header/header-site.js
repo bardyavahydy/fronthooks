@@ -1,7 +1,7 @@
 import { addClass, removeClass, createCircleForBtn } from "../../js/funcs.js";
-import { getCookie } from "../../js/cookie.js"
-import { getAllData } from "../../js/HTTPreq.js"
-import { e2p } from "../../js/convertNumbers.js"
+import { getCookie, setCookie } from "../../js/cookie.js";
+import { getAllData } from "../../js/HTTPreq.js";
+import { e2p } from "../../js/convertNumbers.js";
 
 let allUsers = null
 let tokenObj = getCookie('accessToken')
@@ -230,7 +230,7 @@ class HeaderSite extends HTMLElement{
     }
 
     connectedCallback(){
-        let location = this.getAttribute('location')
+        let locationAtrr = this.getAttribute('location')
         const $ = this.shadowRoot
         const body = document.body
         const menuHamburger = $.querySelector('.mobile-menu-icon')
@@ -253,7 +253,7 @@ class HeaderSite extends HTMLElement{
         const usernameElm = $.querySelector('.desktop-user-panel-profile-menus__name')
         const userPhoneElm = $.querySelector('.desktop-user-panel-profile-menus__number')
         const userProfileMenu = $.querySelector('.desktop-user-panel-profile-menus')
-
+        const logOutBtn = $.querySelector('.user-profile-menu__link--logout')
         const converAllUsersToArr = async () =>{
             let user = null
             let allUsersObj = await this.getAllUsersFromDB()
@@ -351,8 +351,14 @@ class HeaderSite extends HTMLElement{
             }
         })
 
+        logOutBtn.addEventListener('click', event =>{
+            event.preventDefault()
+            setCookie('accessToken', '', -10)
+            location.reload()
+        })
+
         for(const indicator of indicators){
-            if(window.innerWidth < 810 && location === indicator.getAttribute('data-location')){
+            if(window.innerWidth < 810 && locationAtrr === indicator.getAttribute('data-location')){
                 let menuLink = indicator.nextElementSibling
                 indicator.parentNode.classList.add('align-items-center')
                 indicator.classList.add('active')
