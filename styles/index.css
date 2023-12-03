@@ -487,8 +487,172 @@ button{
     max-width: 31rem !important;
 } 
 
+/* frontEnd roadmap */
 
+.section-froentend-roadmap{
+    margin-bottom: 10rem;
+}
 
+.total-container-froentend-roadmap{
+    text-align: center;
+}
+
+.froentend-roadmap-title{
+    color: var(--color-secondary-900);
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: .8rem;
+} 
+
+.froentend-roadmap-link{
+    color: #555775;
+    font-weight: 600;
+}
+
+.froentend-roadmap-link:hover{
+    color: var(--color-primary-900);
+}
+
+.container-froentend-roadmap-steps{
+    max-width: 99.4rem;
+    padding: 4rem;
+    margin: 0 auto;
+}
+
+.container-froentend-roadmap-steps__container-step{
+    position: relative;
+}
+
+.container-froentend-roadmap-steps__container-step-svg{
+    position: relative;
+    background: #fff;
+    box-shadow: 0px 17px 19px 0px rgba(85, 87, 117, 0.091);
+    width: 9rem;
+    height: 9rem;
+    border-radius: 4rem;
+    -webkit-border-radius: 4rem;
+    -moz-border-radius: 4rem;
+    -ms-border-radius: 4rem;
+    -o-border-radius: 4rem;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+}
+
+.container-froentend-roadmap-steps__container-step--1:hover .container-froentend-roadmap-steps__container-step-svg{
+    box-shadow: 0px 17px 19px 0px rgba(255, 0, 0, 0.091);
+}
+
+.container-froentend-roadmap-steps__container-step--2:hover .container-froentend-roadmap-steps__container-step-svg{
+    box-shadow: 0px 17px 19px 0px rgba(255, 221, 0, 0.091);
+}
+
+.container-froentend-roadmap-steps__container-step--3:hover .container-froentend-roadmap-steps__container-step-svg{
+    box-shadow: 0px 17px 19px 0px rgb(252, 37, 37, 0.091);
+}
+
+.container-froentend-roadmap-steps__container-step--4:hover .container-froentend-roadmap-steps__container-step-svg{
+    box-shadow: 0px 17px 19px 0px rgba(0, 157, 255, 0.091);
+}
+
+.container-froentend-roadmap-steps__container-step--5:hover .container-froentend-roadmap-steps__container-step-svg{
+    box-shadow: 0px 17px 19px 0px rgba(0, 191, 255, 0.091);
+}
+
+.container-froentend-roadmap-steps__container-step--6:hover .container-froentend-roadmap-steps__container-step-svg{
+    box-shadow: 0px 17px 19px 0px rgba(0, 0, 0, 0.091);
+}
+
+.container-froentend-roadmap-steps__logo{
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 4rem;
+    height: 4rem;
+    fill: #555775;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+}
+
+.container-froentend-roadmap-steps__container-step--1:hover .container-froentend-roadmap-steps__logo{
+    fill: rgb(255, 0, 0);
+} 
+
+.container-froentend-roadmap-steps__container-step--2:hover .container-froentend-roadmap-steps__logo{
+    fill: rgb(255, 221, 0);
+
+} 
+
+.container-froentend-roadmap-steps__container-step--3:hover .container-froentend-roadmap-steps__logo{
+    fill: rgb(252, 37, 37);
+
+}  
+
+.container-froentend-roadmap-steps__container-step--4:hover .container-froentend-roadmap-steps__logo{
+    fill: rgb(0, 157, 255);
+
+} 
+
+.container-froentend-roadmap-steps__container-step--5:hover .container-froentend-roadmap-steps__logo{
+    fill: rgb(0, 191, 255);
+
+} 
+
+.container-froentend-roadmap-steps__container-step--6:hover .container-froentend-roadmap-steps__logo{
+    fill: rgb(0, 0 ,0);
+
+}
+
+.container-froentend-roadmap-steps__title{
+    display: inline-block;
+    color: #555775;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.container-froentend-roadmap-steps__container-step--1:hover .container-froentend-roadmap-steps__title{
+    color: rgb(255, 0, 0);
+} 
+
+.container-froentend-roadmap-steps__container-step--2:hover .container-froentend-roadmap-steps__title{
+    color: rgb(255, 221, 0);
+}
+
+.container-froentend-roadmap-steps__container-step--3:hover .container-froentend-roadmap-steps__title{
+    color: rgb(252, 37, 37);
+}
+
+.container-froentend-roadmap-steps__container-step--4:hover .container-froentend-roadmap-steps__title{
+    color: rgb(0, 157, 255);
+}
+
+.container-froentend-roadmap-steps__container-step--5:hover .container-froentend-roadmap-steps__title{
+    color: rgb(0, 191, 255);
+}
+
+.container-froentend-roadmap-steps__container-step--6:hover .container-froentend-roadmap-steps__title{
+    color: rgb(0, 0 ,0);
+}
+
+.container-froentend-roadmap-steps__svg-arrow{
+    position: absolute;
+    width: 6.4rem;
+    height: 5.8rem;
+}
+
+.container-froentend-roadmap-steps__container-step:nth-child(odd) .container-froentend-roadmap-steps__svg-arrow{
+    left: -71%;
+}
+
+.container-froentend-roadmap-steps__container-step:nth-child(even) .container-froentend-roadmap-steps__svg-arrow{
+    top: -4.5rem;
+    left: -71%;
+}
 
 
 
@@ -665,6 +829,16 @@ button{
     }
 }
 
+@media (max-width: 928px){
+    .container-froentend-roadmap-steps__svg-arrow{
+        width: 3.8rem;
+    }
+
+    .container-froentend-roadmap-steps__container-step:nth-child(odd) .container-froentend-roadmap-steps__svg-arrow, .container-froentend-roadmap-steps__container-step:nth-child(even) .container-froentend-roadmap-steps__svg-arrow{
+        left: -50%;
+    }
+}
+
 @media (max-width: 810px){
     *{
         cursor: default !important;
@@ -762,6 +936,53 @@ button{
 
     .total-container-courses{
         padding: 1.5rem;
+    }
+
+    .section-froentend-roadmap{
+        margin-bottom: 8rem;
+    }
+
+    .froentend-roadmap-title{
+        font-size: 2rem;
+        margin-bottom: .4rem;
+    }
+
+    .froentend-roadmap-link{
+        font-size: 1.4rem;
+    }
+
+    .container-froentend-roadmap-steps{
+        padding: 3.2rem 1.6rem;
+        max-width: 64rem;
+        overflow-x: scroll;
+    }
+
+    .container-froentend-roadmap-steps__container-step{
+        margin: 0 3rem;
+    }
+
+    .container-froentend-roadmap-steps__container-step-svg{
+        width: 8rem;
+        height: 8rem;
+        border-radius: 3.5rem;
+        -webkit-border-radius: 3.5rem;
+        -moz-border-radius: 3.5rem;
+        -ms-border-radius: 3.5rem;
+        -o-border-radius: 3.5rem;
+    }
+
+    .container-froentend-roadmap-steps__icon{
+        width: 3.6rem;
+        height: 3.6rem;
+    }
+
+    .container-froentend-roadmap-steps__svg-arrow{
+        width: 6.4rem;
+        height: 5.8rem;
+    }
+
+    .container-froentend-roadmap-steps__container-step:nth-child(odd) .container-froentend-roadmap-steps__svg-arrow, .container-froentend-roadmap-steps__container-step:nth-child(even) .container-froentend-roadmap-steps__svg-arrow{
+        left: -71%;
     }
 }
 
