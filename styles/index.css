@@ -192,6 +192,43 @@ button{
     -o-transition: color .3s;
 }
 
+.wrapper-svg-and-title{
+    margin-bottom: 3.2rem;
+}
+
+.wrapper-svgs{
+    position: relative;
+    width: 8rem;
+    height: 8rem;
+    margin-left: 3rem;
+}
+
+.svg-big{
+    width: 100%;
+    height: 100%;
+} 
+
+.svg-little{
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 4.4rem;
+    height: 4.4rem;
+    stroke: #fff;
+}
+
+.title{
+    color: var(--color-secondary-900);
+    font-size: 3.2rem;
+    font-weight: 900;
+}
+
+.text{
+    color: var(--color-secondary-900);
+    font-weight: 200;
+    margin-right: 3.2rem;
+}
+
 /* banner */
 
 .banner-svg-bg{
@@ -487,6 +524,61 @@ button{
     max-width: 31rem !important;
 } 
 
+/* past */
+
+.container-past{
+    max-width: 124.8rem;
+    margin: 11.2rem auto 8rem;
+}
+
+.past-wrapper-left{
+    width: 68.4rem;
+    background-color: #00c073;
+}
+
+.container-statistics{
+    background: #fff;
+    color: #555775;
+    box-shadow: 0 10px 15px -3px rgba(209,213,219,.3) ,0 4px 6px -4px rgba(209,213,219,.3);
+    padding: 1.2rem;
+    width: 33%;
+    border-radius: 1.5rem;
+    -webkit-border-radius: 1.5rem;
+    -moz-border-radius: 1.5rem;
+    -ms-border-radius: 1.5rem;
+    -o-border-radius: 1.5rem;
+    transition: .3s ease-out;
+    -webkit-transition: .3s ease-out;
+    -moz-transition: .3s ease-out;
+    -ms-transition: .3s ease-out;
+    -o-transition: .3s ease-out;
+}
+.container-statistics:hover{
+    scale: 1.2;
+    box-shadow: 0 10px 15px -3px rgba( 183,197,255 ,0.5) ,0 4px 6px -4px rgba( 183,197,255 ,0.5);
+    color: var(--color-primary-900);
+}
+
+.container-statistics:nth-child(even){
+    margin: 0 3rem;
+}
+
+.container-statistics__svg{
+    width: 2rem;
+    height: 2rem;
+}
+
+.container-statistics__statistic{
+    font-size: 2.4rem;
+    font-weight: 900;
+}
+
+.container-statistics__text{
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-align: center;
+}
+
 /* frontEnd roadmap */
 
 .section-froentend-roadmap{
@@ -654,16 +746,6 @@ button{
     left: -71%;
 }
 
-
-
-
-
-
-
-
-
-
-
 /* footer */
 
 .footer-section{
@@ -802,6 +884,37 @@ button{
 }
 
 @media (max-width: 1090px){
+    .wrapper-svg-and-title {
+        margin-bottom: 1.6rem;
+    }
+
+    .wrapper-svgs{
+        width: 4.755rem;
+        height: 4.755rem;
+        margin-left: 1.5rem;
+    }
+
+    .svg-little{
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+
+    .title{
+        font-size: 2rem;
+    }
+
+    .text {
+        color: var(--color-secondary-900);
+        font-size: 1.2rem;
+        margin-right: 2rem;
+    }
+
+    .past-wrapper-right{
+        width: 22.5rem;
+        flex-shrink: 0;
+        margin-left: 1rem;
+    }
+
     .swiper-wrapper .swiper-slide-new-style{
         max-width: 33rem !important;
     } 
@@ -832,6 +945,10 @@ button{
 @media (max-width: 928px){
     .container-froentend-roadmap-steps__svg-arrow{
         width: 3.8rem;
+    }
+
+    .container-statistics:nth-child(even) {
+        margin: 0 1rem;
     }
 
     .container-froentend-roadmap-steps__container-step:nth-child(odd) .container-froentend-roadmap-steps__svg-arrow, .container-froentend-roadmap-steps__container-step:nth-child(even) .container-froentend-roadmap-steps__svg-arrow{
@@ -920,8 +1037,14 @@ button{
         display: inline;
     }
 
+    .total-container-features-of-courses, .total-container-courses, .container-past, .container-froentend-roadmap-steps{
+        max-width: 64rem;
+    }
+
     .total-container-courses{
         flex-direction: column;
+        padding: 1.5rem;
+        margin: 8rem auto;
     }
 
     .courses-wrapper-right{
@@ -934,8 +1057,30 @@ button{
         margin-right: 0;
     }
 
-    .total-container-courses{
-        padding: 1.5rem;
+    .container-past{
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 8rem auto;
+    }
+
+    .past-wrapper-right {
+        margin: 0 0 3rem 0;
+    }
+
+    .past-wrapper-left {
+        width: 100%;
+    }
+
+    .total-container-statistics{
+        flex-wrap: wrap;
+    }
+
+    .container-statistics{
+        width: 100%;
+    }
+
+    .container-statistics:nth-child(even){
+        margin: 3rem 0;
     }
 
     .section-froentend-roadmap{
@@ -953,7 +1098,6 @@ button{
 
     .container-froentend-roadmap-steps{
         padding: 3.2rem 1.6rem;
-        max-width: 64rem;
         overflow-x: scroll;
     }
 
