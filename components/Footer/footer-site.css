@@ -152,7 +152,6 @@ button{
 }
 
 .container-ways-of-communication__links:hover .container-ways-of-communication__insta-link-svg{
-    fill: linear-gradient(45deg, #FFDC80, #FCAF45, #F77737, #F56040, #FD1D1D, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
     fill: #E1306C;
 } 
 
