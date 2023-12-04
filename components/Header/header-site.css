@@ -520,6 +520,11 @@ button{
     color: #f87171;
 }
 
+.menu__link.active{
+    color: var(--color-primary-900);
+    font-weight: 700;
+}
+
 .user-profile-menu__svg{
     margin-left: 1.6rem;
 }
@@ -674,7 +679,7 @@ button{
         padding: .8rem .8rem 0;
     }
 
-    .menu__link.active{
+    .menu__link.active:hover{
         color: var(--color-primary-900);
         font-weight: 700;
     }
