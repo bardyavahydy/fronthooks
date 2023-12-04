@@ -49,43 +49,11 @@ table {
     --font-family: vazir, ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     --color-primary-900: #4a6dff;
     --color-primary-800: #5c7cff;
-    --color-primary-700: #6e8aff;
-    --color-primary-600: #8099ff;
-    --color-primary-500: #92a7ff;
-    --color-primary-400: #a4b6ff;
     --color-primary-300: #b7c5ff;
-    --color-primary-200: #c9d3ff;
-    --color-primary-100: #dbe2ff;
-    --color-primary-50: #e4e9ff;
     --color-secondary-900: #2a2d53;
     --color-secondary-800: #3f4264;
     --color-secondary-700: #555775;
     --color-secondary-600: #6a6c87;
-    --color-secondary-500: #7f8198;
-    --color-secondary-400: #9496a9;
-    --color-secondary-300: #aaabba;
-    --color-secondary-200: #bfc0cb;
-    --color-secondary-100: #d4d5dd;
-    --color-secondary-50: #dfdfe5;
-    --color-fill: #4338ca;
-    --color-title: #3f4264;
-    --color-text-base: #6a6c87;
-    --color-text-muted: #9496a9;
-    --color-text-inverted: #ffffff;
-    --color-button-primary: #4a6dff;
-    --color-button-primary-hover: #6e8aff;
-    --color-button-muted: #dfdfe5;
-    --color-icon-primary: #4a6dff;
-    --color-icon-secondary-dkst: #2a2d53;
-    --color-icon-secondary-dk: #555775;
-    --color-icon-secondary-lt: #7f8198;
-    --color-success: #00c073;
-    --color-warning: #ff9900;
-    --color-error: #ff4757;
-    --color-red-500: #ef4444;
-    --color-red-300: #fca5a5;
-    --scroll-primary: #efefef;
-    --scroll-secondary: #ccc;
 }
 
 
@@ -537,7 +505,7 @@ button{
 
 .container-statistics{
     background: #fff;
-    color: #555775;
+    color: var(--color-secondary-700);
     box-shadow: 0 10px 15px -3px rgba(209,213,219,.3) ,0 4px 6px -4px rgba(209,213,219,.3);
     padding: 1.2rem;
     width: 33%;
@@ -596,7 +564,7 @@ button{
 } 
 
 .froentend-roadmap-link{
-    color: #555775;
+    color: var(--color-secondary-700);
     font-weight: 600;
 }
 
@@ -662,7 +630,7 @@ button{
     margin: auto;
     width: 4rem;
     height: 4rem;
-    fill: #555775;
+    fill: var(--color-secondary-700);
     transition: .3s;
     -webkit-transition: .3s;
     -moz-transition: .3s;
@@ -701,7 +669,7 @@ button{
 
 .container-froentend-roadmap-steps__title{
     display: inline-block;
-    color: #555775;
+    color: var(--color-secondary-700);
     font-weight: 600;
     margin-top: 1rem;
 }
