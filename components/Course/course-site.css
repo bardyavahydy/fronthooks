@@ -314,6 +314,37 @@ button{
     display: inline-block;
 }
 
+/* loading */
+
+.loading{
+    display: none;
+    padding: 1.8rem 0;
+}
+
+.loading.active{
+    display: flex;
+}
+
+.loading__circle{
+    display: inline-block;
+    background: var(--color-button-primary);
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    animation: sacle1Toscale13 .5s ease-in-out alternate infinite;
+    -webkit-animation: sacle1Toscale13 .5s ease-in-out alternate infinite;
+}
+
+.loading__circle--mid{
+    margin: 0 .25rem 0;
+    animation: sacle13Toscale1 .5s ease-in-out alternate infinite;
+    -webkit-animation: sacle13Toscale1 .5s ease-in-out alternate infinite;
+}
+
 /* circle */
 
 .circle{
@@ -326,6 +357,30 @@ button{
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+}
+
+@keyframes sacle1Toscale13{
+    0%{
+        scale: 1;
+        opacity: .7;
+    }
+
+    100%{
+        scale: 1.3;
+        opacity: 1;
+    }
+}
+
+@keyframes sacle13Toscale1{
+    0%{
+        opacity: 1;
+        scale: 1.3;
+    }
+    
+    100%{
+        opacity: .7;
+        scale: 1;
+    }
 }
 
 @keyframes circleElm{
