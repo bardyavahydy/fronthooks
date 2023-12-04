@@ -59,6 +59,11 @@ template.innerHTML = `
         </div>
 
         <div class="container-course__register-btn-and-price space-between">
+            <div class="loading center">
+                <span class="loading__circle"></span>
+                <span class="loading__circle loading__circle--mid"></span>
+                <span class="loading__circle"></span>
+            </div>
             <button class="container-course__register-btn transition-bg-3s">ثبت نام در دوره</button>
             <a href="#" class="container-course__continue-the-order-link transition-bg-3s">ادامه سفارش</a>
             <div class="container-course__price-infos">
@@ -97,11 +102,12 @@ class CourseSite extends HTMLElement{
         const courseTitle = $.querySelector('.container-course__link-title')
         const courseStatus = $.querySelector('.container-course__course-status')
         const containerRegisterBtnAndPrice = $.querySelector('.container-course__register-btn-and-price')
+        const courseRegisterBtn = $.querySelector('.container-course__register-btn')
+        const loading = $.querySelector('.loading')
         const containerPriceAndOffElm = $.querySelector('.container-course__container-price-off')
         const coursePriceWithoutOff = $.querySelector('.container-course__price-without-off')
         const courseDiscountPercent = $.querySelector('.container-course__discount-percent')
         const coursePrice = $.querySelector('.container-course__price')    
-        const courseRegisterBtn = $.querySelector('.container-course__register-btn')
         const continueOrderLinkBtn = $.querySelector('.container-course__continue-the-order-link')
         const showCourseLink = $.querySelector('.container-course__show-course-link')
 
@@ -160,8 +166,9 @@ class CourseSite extends HTMLElement{
                         courseDiscountPercent: this.getAttribute('discount-percent'),
                         purchaseStatus: 'not purchased'
                     }
-                    postData(selectedCourseInfo, `${userToken}selectedCourseUser`)
-                    this.addActiveAndInactiveClasses(courseRegisterBtn, continueOrderLinkBtn)                
+                    this.addActiveAndInactiveClasses(courseRegisterBtn, loading)   
+                    this.courseReservationHandler(selectedCourseInfo, `${userToken}selectedCourseUser`, continueOrderLinkBtn, loading)  
+                    createModal(`${courseTitle.innerText} به سبد خرید اضافه شد`, 'fa fa-check', '#00c073')             
                 }else{
                     createModal('لطفا ابتدا وارد حساب کاربری خود شوید .', 'fa fa-close', '#ef4444')
                     setTimeout(() => location.href = './auth.html' , 3000)
@@ -191,6 +198,12 @@ class CourseSite extends HTMLElement{
                 if(courseTable === prop) deleteData(`${userToken}likedCourseUser`, likeId)
             }
         }
+    }
+
+    async courseReservationHandler(selectedCourseInfo, table, continueOrderLinkBtn, loading){
+        await postData(selectedCourseInfo, table)
+        addClass(continueOrderLinkBtn, 'active')   
+        removeClass(loading, 'active') 
     }
 
     setActiveAndInactiveToLinkBtn(selectedCourses, courseRegisterBtn, continueOrderLinkBtn, showCourseLink, containerRegisterBtnAndPrice, courseTitle){
