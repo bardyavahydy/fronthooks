@@ -277,10 +277,12 @@ class HeaderSite extends HTMLElement{
         const selectedCourseHandler = async () =>{
             let selectedCourseArr = null
             let selectedCourseObj = await this.getSelectedCourses()
-            if(selectedCourseObj){
+            if(!isLogin || !selectedCourseObj){
+                cartNumberOfOrder.innerText = e2p(0)
+            }else if(selectedCourseObj){
                 selectedCourseArr = Object.entries(selectedCourseObj)
                 cartNumberOfOrder.innerText = e2p(selectedCourseArr.length) 
-            }else cartNumberOfOrder.innerText = e2p(0)
+            }
         }
         selectedCourseHandler()
 
@@ -358,11 +360,13 @@ class HeaderSite extends HTMLElement{
         })
 
         for(const indicator of indicators){
-            if(window.innerWidth < 810 && locationAtrr === indicator.getAttribute('data-location')){
+            if(locationAtrr === indicator.getAttribute('data-location')){
                 let menuLink = indicator.nextElementSibling
-                indicator.parentNode.classList.add('align-items-center')
-                indicator.classList.add('active')
-                menuLink.classList.add('active')
+                addClass(menuLink, 'active')
+                if(window.innerWidth <= 810 && locationAtrr === indicator.getAttribute('data-location')){
+                    addClass(indicator.parentNode, 'align-items-center')
+                    addClass(indicator, 'active')
+                }
                 break
             }
         }
