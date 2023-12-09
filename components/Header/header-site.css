@@ -645,6 +645,7 @@ button{
 
     .overlay.active .container-desktop-logo-menu{
         right: 0;
+        transition-delay: .3s; 
     }
 
     .menu__link:hover, .menu-contactUs__link:hover{
