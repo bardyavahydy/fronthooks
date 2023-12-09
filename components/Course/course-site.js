@@ -200,12 +200,6 @@ class CourseSite extends HTMLElement{
         }
     }
 
-    async courseReservationHandler(selectedCourseInfo, table, continueOrderLinkBtn, loading){
-        await postData(selectedCourseInfo, table)
-        addClass(continueOrderLinkBtn, 'active')   
-        removeClass(loading, 'active') 
-    }
-
     setActiveAndInactiveToLinkBtn(selectedCourses, courseRegisterBtn, continueOrderLinkBtn, showCourseLink, containerRegisterBtnAndPrice, courseTitle){
         if(selectedCourses){
             for(let selectedId in selectedCourses){
@@ -276,6 +270,12 @@ class CourseSite extends HTMLElement{
     async getSelectedCourse(){
         let selectedCourses = await getAllData(`${userToken}selectedCourseUser`)
         return selectedCourses
+    }
+
+    async courseReservationHandler(selectedCourseInfo, table, continueOrderLinkBtn, loading){
+        await postData(selectedCourseInfo, table)
+        addClass(continueOrderLinkBtn, 'active')   
+        removeClass(loading, 'active') 
     }
 
     static observedAttributes(){

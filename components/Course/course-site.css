@@ -327,7 +327,7 @@ button{
 
 .loading__circle{
     display: inline-block;
-    background: var(--color-button-primary);
+    background: var(--color-primary-900);
     width: .5rem;
     height: .5rem;
     border-radius: 50%;
