@@ -279,7 +279,7 @@ class CourseSite extends HTMLElement{
     }
 
     static observedAttributes(){
-        return['imgcourse-src', 'course-title', 'course-status', 'course-price', 'discount-percent', 'course-price-without-off']
+        return['imgcourse-src', 'course-title', 'course-status', 'course-price', 'discount-percent', 'course-price-without-off','course-table', 'category']
     }
 }
 
