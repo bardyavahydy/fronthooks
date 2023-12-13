@@ -390,6 +390,17 @@ button{
     max-width: 31rem;
 }
 
+.course.active{
+    display: block;
+}
+
+.course.inactive{
+    display: none;
+}
+
+.msg{
+    color: var(--color-error);
+}
 /* footer */
 
 .footer-section{
