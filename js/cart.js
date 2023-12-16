@@ -3,8 +3,8 @@
 import { HeaderSite } from "../components/Header/header-site.js";
 import { FooterSite } from "../components/Footer/footer-site.js";
 import { addClass, removeClass, createCircleForBtn } from "./funcs.js";
-import { createModal } from "../../js/modal.js";
-import { getAllData, postData, putData, deleteData } from "../../js/HTTPreq.js";
+import { createModal } from "./modal.js";
+import { getAllData, postData, putData, deleteData } from "./HTTPreq.js";
 import { getCookie } from "./cookie.js";
 import { e2p, sp } from "./convertNumbers.js";
 
