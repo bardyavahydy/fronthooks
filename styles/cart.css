@@ -54,6 +54,8 @@ table {
     --color-secondary-800: #3f4264;
     --color-secondary-700: #555775;
     --color-secondary-600: #6a6c87;
+    --color-secondary-300: #aaabba;
+    --color-red-500: #ef4444;
 }
 
 
@@ -84,6 +86,7 @@ a{
 }
 
 button{
+    display: inline-block;
     cursor: pointer;
     outline: none;
     border: none;
@@ -160,8 +163,280 @@ button{
     -o-transition: color .3s;
 }
 
+.inactive{
+    display: none;
+}
 
+.border-radius{
+    border-radius: 1.2rem;
+    -webkit-border-radius: 1.2rem;
+    -moz-border-radius: 1.2rem;
+    -ms-border-radius: 1.2rem;
+    -o-border-radius: 1.2rem;
+}
 
+/* container msg */
+
+.total-container-msg, .total-container-calculations-and-courses{
+
+    /* display: none; */
+
+    max-width: 102.4rem;
+    margin: 7rem auto 4rem;
+    padding-top: 2.4rem;
+    padding-bottom: 2.4rem;
+}
+
+.msg-text{
+    color: var(--color-secondary-700);
+    font-weight: 600;
+    margin-bottom: 1rem
+} 
+
+.msg-link{
+    color: var(--color-primary-900);
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.msg-link:hover{
+    color: var(--color-primary-800);
+}
+
+.total-container-calculations-and-courses{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.title-page{
+    color: var(--color-secondary-800);
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+}
+
+.container-calculations-and-courses{
+    display: flex;
+    justify-content: space-between;
+}
+
+.total-container-courses{
+    width: 64.8rem;
+}
+
+.container-course{
+    background: #fff;
+    margin-bottom: 2rem;
+    padding: 2.8rem 3.6rem;
+    width: 100%;
+}
+
+.container-course__cover{
+    overflow: hidden;
+    width: 11.2rem;
+    height: 11.2rem;
+    margin-left: 1.2rem;
+    flex-shrink: 0;
+}
+
+.container-course__link-course{
+    color: var(--color-secondary-700);
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 1.2rem;
+}
+
+.container-course__link-course:hover{
+    color: #2563eb;
+}
+
+.container-teachers-name-and-teacher-svg{
+    color: var(--color-secondary-600);
+    font-size: 1.1rem;
+}
+
+.container-course__svg{
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.container-course__course-price-without-off{
+    color: #aaabba;
+    font-size: 1.4rem;
+} 
+
+.container-course__discount-percent{
+    background: #f43f5e;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: .1rem 1.2rem;
+} 
+
+.container-corse-price-and-toman-svg{
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.container-corse__price{
+    color: var(--color-primary-900);
+    font-size: 2.4rem;
+    font-weight: 900;
+} 
+
+.container-corse__toman-svg{
+    color: var(--color-secondary-300);
+    width: 2rem;
+    height: 2rem;
+}
+
+.delete-course-btn{
+    background: transparent;
+    padding: .4rem;
+    margin-right: 2.8rem;
+    border: .1rem solid #f3f4f6;
+} 
+
+.delete-course-btn__svg{
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-red-500);
+} 
+
+.total-container-calculations{
+    width: 30.4rem;
+}
+
+.container-calculations{
+    background: #fff;
+    padding: 2.4rem;
+    width: 100%;
+}
+
+.payment-information-title, .container-discount-code, .container-sums{
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.6rem;
+    border-bottom: .1rem solid #e5e7eb;
+}
+
+.payment-information-title{
+    color: var(--color-secondary-800);
+    font-weight: 800;
+}
+
+.payment-information-title__svg{
+    width: 2rem;
+    height: 2rem;
+}
+
+.container-discount-code__label{
+    color: var(--color-secondary-700);
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.container-discount-code__label:hover + .container-discount-code-input, .container-discount-code-input:hover{
+    border-color: var(--color-primary-300);
+}
+
+.container-discount-code-input{
+    background: #f3f4f6;
+    padding: 1.2rem 1.6rem;
+    border: .1rem solid #f3f4f6;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+}
+
+.container-discount-code-input.new-style{
+    box-shadow: 0 12px 24px -8px var(--color-primary-300);
+    background: #fff;
+    border-color: var(--color-primary-300);
+}
+
+.container-discount-code-input__input{
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.apply-the-code-btn{
+    background: var(--color-primary-900);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 200;
+    padding: .4rem 1rem;
+    border-radius: .8rem;
+    -webkit-border-radius: .8rem;
+    -moz-border-radius: .8rem;
+    -ms-border-radius: .8rem;
+    -o-border-radius: .8rem;
+}
+
+.apply-the-code-btn:hover, .payment-btn:hover{
+    background: var(--color-primary-800);
+}
+
+.container-total-sum{
+    margin-bottom: .8rem;
+}
+
+.sum-title, .off-title, .container-the-amount-payable__title{
+    color: var(--color-secondary-700);
+    font-size: 1.5rem;
+    font-weight: 600;
+} 
+
+.total-sum, .total-off{
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.total-sum{
+    color: var(--color-secondary-600);
+}
+
+.total-off{
+    color: #f43f5e;
+}
+
+.container-the-amount-payable{
+    margin-bottom: 2.4rem;
+}
+
+.container-the-amount-payable-info__price{
+    color: var(--color-primary-900);
+    font-size: 2rem;
+    font-weight: 600;
+} 
+
+.container-the-amount-payable-info__svg{
+    color: var(--color-secondary-300);
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.payment-btn{
+    box-shadow: 0 10px 15px -3px rgb( 183,197,255 ) ,0 4px 6px -4px rgb( 183,197,255 );
+    background: var(--color-primary-900);
+    color: #fff;
+    padding: 1.2rem 1.6rem;
+    width: 100%;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+/* footer */
+
+.footer-section{
+    background: #e5e7eb;
+    color: var(--color-secondary-600);
+    padding: 3.2rem 1.6rem;
+    border-top-right-radius: 2.5rem;
+    border-top-left-radius: 2.5rem;
+}
 
 /* circle */
 
@@ -226,6 +501,46 @@ button{
     height: .4rem;
 }
 
+/* loading */
+
+.loading{
+    display: none;
+    padding: 1.8rem 0;
+}
+
+.loading.active{
+    display: flex;
+}
+
+.loading__circle{
+    display: inline-block;
+    background: var(--color-primary-900);
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    animation: sacle1Toscale13 .5s ease-in-out alternate infinite;
+    -webkit-animation: sacle1Toscale13 .5s ease-in-out alternate infinite;
+}
+
+.container-calculations .loading__circle{
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.loading__circle--mid{
+    margin: 0 .25rem;
+    animation: sacle13Toscale1 .5s ease-in-out alternate infinite;
+    -webkit-animation: sacle13Toscale1 .5s ease-in-out alternate infinite;
+}
+
+.container-calculations .loading__circle--mid{
+    margin: 0 .5rem;
+}
+
 @keyframes modalAnimation{
     0%{
         top: -4rem;
@@ -288,4 +603,94 @@ button{
     100%{
         scale: 1;
     }
+}
+
+@keyframes sacle1Toscale13{
+    0%{
+        scale: 1;
+        opacity: .7;
+    }
+
+    100%{
+        scale: 1.3;
+        opacity: 1;
+    }
+}
+
+@keyframes sacle13Toscale1{
+    0%{
+        opacity: 1;
+        scale: 1.3;
+    }
+    
+    100%{
+        opacity: .7;
+        scale: 1;
+    }
+}
+
+@media (max-width: 1279px){
+    .container{
+        max-width: 102.4rem;
+    }
+}
+
+@media (max-width: 1066px){
+    .container{
+        max-width: 78rem;
+    }
+
+    .container-calculations-and-courses{
+        flex-direction: column;
+    }
+
+    .total-container-courses, .total-container-calculations {
+        width: 100%;
+    }
+    
+    .container-course__cover{
+        width: 6.4rem;
+        height: 6.4rem;
+    }
+
+    .container-calculations {
+        padding: 1.2rem;
+    }
+
+}
+
+@media (max-width: 810px){
+    *{
+        cursor: default !important;
+    }
+    
+    .container{
+        max-width: 60.8rem;
+    }
+
+    .container-course__link-course {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 639px){
+    .container-course {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.2rem;
+    }
+
+    .container-course-price-and-delete-btn{
+        flex-direction: row-reverse;
+        align-self: flex-end;
+    }
+
+    .container-corse__price {
+        font-size: 1.6rem;
+    }
+
+    .delete-course-btn, .container-course-price-and-delete-btn .loading{
+        margin: 0 0 0 2.8rem;
+    }
+
 }
