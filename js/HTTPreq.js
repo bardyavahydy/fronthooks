@@ -29,7 +29,7 @@ const postData = async (data, table) =>{
 
 const putData = async (data, table, courseId) =>{
     try{
-        let res = await fetch(`https://fronthooks3-default-rtdb.firebaseio.com/${table}/${courseId}.json`,{
+        let res = await fetch(`${BASE_URL}${table}/${courseId}.json`,{
             method:'PUT',
             headers:{
                 "Content-type": 'application/json'
@@ -43,7 +43,7 @@ const putData = async (data, table, courseId) =>{
 
 const deleteData = async (table, CourseId) =>{
     try{
-        let res = await fetch(`https://fronthooks3-default-rtdb.firebaseio.com/${table}/${CourseId}.json`,{
+        let res = await fetch(`${BASE_URL}${table}/${CourseId}.json`,{
             method:'DELETE'
         })
     }catch(err){
@@ -51,7 +51,7 @@ const deleteData = async (table, CourseId) =>{
     }
 }
 
-const errorHandler = () => createModal('ارتباط به درستی برقرار نشد اطفا دوباره تلاش کنید . 🙏🏼', 'fa fa-close', '#ef4444')
+const errorHandler = () => createModal('ارتباط به درستی برقرار نشد لطفا دوباره تلاش کنید . 🙏🏼', 'fa fa-close', '#ef4444')
 
 
 export { getAllData, postData, putData, deleteData }
