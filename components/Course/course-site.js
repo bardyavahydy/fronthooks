@@ -99,6 +99,7 @@ class CourseSite extends HTMLElement{
         const courseImg = $.querySelector('.container-course__img')
         const containerNumberOfLikedCourse = $.querySelector('.container-course__container-number-of-liked-course')
         const numberOfLikedCourse = $.querySelector('.container-course__number-of-liked-course-text')
+        const numberOfCourseStudentElm = $.querySelector('.container-course__number-of-course-text')
         const courseTitle = $.querySelector('.container-course__link-title')
         const courseStatus = $.querySelector('.container-course__course-status')
         const containerRegisterBtnAndPrice = $.querySelector('.container-course__register-btn-and-price')
@@ -124,7 +125,7 @@ class CourseSite extends HTMLElement{
         }else addClass(containerPriceAndOffElm, 'inactive')
 
         const runFuncs = async () =>{
-            const likedCourseID = await this.getCourseTableData(courseTable, numberOfLikedCourse, courseTitle)
+            const likedCourseID = await this.getCourseTableData(courseTable, numberOfLikedCourse, numberOfCourseStudentElm, courseTitle)
             let favCourses = await this.getFavCourses(courseTable)
             let selectedCourses = await this.getSelectedCourse()
             this.setLikedClasses(containerNumberOfLikedCourse, favCourses, courseTable)
@@ -138,7 +139,7 @@ class CourseSite extends HTMLElement{
                         addClass(containerNumberOfLikedCourse, 'liked')
                         createModal('مرسی بابت لایکتون', 'fa fa-check', '#00c073')
 
-                        putData({ numberLike: numberOfLikedCourse.innerText, courseTitle: courseTitle.innerText }, courseTable, likedCourseID)
+                        putData({ numberLike: p2e(numberOfLikedCourse.innerText), numberOfStudent: p2e(numberOfCourseStudentElm.innerText), courseTitle: courseTitle.innerText }, courseTable, likedCourseID)
 
                         this.putNewCourseLikedInDB(courseTable, favCourses)
                     }else{
@@ -146,7 +147,7 @@ class CourseSite extends HTMLElement{
                         removeClass(containerNumberOfLikedCourse, 'liked')
                         createModal('لایکتون برداشته شده', 'fa fa-close', '#ef4444')
 
-                        putData({ numberLike: numberOfLikedCourse.innerText, courseTitle: courseTitle.innerText }, courseTable, likedCourseID)
+                        putData({ numberLike: p2e(numberOfLikedCourse.innerText), numberOfStudent: p2e(numberOfCourseStudentElm.innerText), courseTitle: courseTitle.innerText }, courseTable, likedCourseID)
 
                         this.removeCourseLikedFromDB(userToken, courseTable, favCourses)
                     }
@@ -164,7 +165,8 @@ class CourseSite extends HTMLElement{
                         price: this.getAttribute('course-price'),
                         coursePriceWithoutOff: this.getAttribute('course-price-without-off'),
                         courseDiscountPercent: this.getAttribute('discount-percent'),
-                        purchaseStatus: 'not purchased'
+                        purchaseStatus: 'not purchased', 
+                        table: courseTable,
                     }
                     this.addActiveAndInactiveClasses(courseRegisterBtn, loading)   
                     this.courseReservationHandler(selectedCourseInfo, `${userToken}selectedCourseUser`, continueOrderLinkBtn, loading)  
@@ -219,24 +221,26 @@ class CourseSite extends HTMLElement{
         addClass(elm2, 'active')    
     }
     
-    async getCourseTableData(courseTable, numberOfLikedCourse, courseTitle){
+    async getCourseTableData(courseTable, numberOfLikedCourse, numberOfCourseStudentElm, courseTitle){
         let likedCourseID = null
         let courseTableData = await getAllData(courseTable)
         
         if(courseTableData){
             for(let courseId in courseTableData){
                 likedCourseID = courseId
-                numberOfLikedCourse.innerText = courseTableData[courseId].numberLike
+                numberOfLikedCourse.innerText = e2p(courseTableData[courseId].numberLike)
+                numberOfCourseStudentElm.innerText = e2p(courseTableData[courseId].numberOfStudent)
             }
         }else{
-            likedCourseID = await this.setFirstCourserTable(numberOfLikedCourse, courseTitle, likedCourseID, courseTable)
+            likedCourseID = await this.setFirstCourserTable(numberOfLikedCourse, numberOfCourseStudentElm, courseTitle, likedCourseID, courseTable)
         }
         return likedCourseID
     }
     
-    async setFirstCourserTable(numberOfLikedCourse, courseTitle, likedCourseID, courseTable){
+    async setFirstCourserTable(numberOfLikedCourse, numberOfCourseStudentElm, courseTitle, likedCourseID, courseTable){
         numberOfLikedCourse.innerText = '۰'
-        await postData({ numberLike: numberOfLikedCourse.innerText, courseTitle: courseTitle.innerText }, courseTable)
+        numberOfCourseStudentElm.innerText = '۰'
+        await postData({ numberLike: 0, numberOfStudent: 0, courseTitle: courseTitle.innerText }, courseTable)
         
         let courseTableData = await getAllData(courseTable)
         for(let courseId in courseTableData) likedCourseID = courseId
