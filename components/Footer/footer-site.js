@@ -52,7 +52,7 @@ template.innerHTML =`
                             <h3 class="sections-of-the-site-links__title">بخش‌های سایت</h3>
                             <ul class="menu-sections-of-the-site-links">
                                 <li class="sections-of-the-site-links__list-item footer-list-item">
-                                    <a href="#" class="footer-link transition-color-3s sections-of-the-site-links__link">دوره‌های آموزشی</a>
+                                    <a href="./courses.html" class="footer-link transition-color-3s sections-of-the-site-links__link">دوره‌های آموزشی</a>
                                 </li>
                                 <li class="sections-of-the-site-links__list-item footer-list-item">
                                     <a href="#" class="footer-link transition-color-3s sections-of-the-site-links__link">بلاگ‌های آموزشی</a>
