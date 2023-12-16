@@ -4,7 +4,7 @@ import { createCircleForBtn } from "./funcs.js";
 import { HeaderSite } from "../components/Header/header-site.js";
 import { CourseSite } from "../components/Course/course-site.js";
 import { FooterSite } from "../components/Footer/footer-site.js";
-import { getAllData } from "../../js/HTTPreq.js";
+import { getAllData } from "./HTTPreq.js";
 import { sp } from "./convertNumbers.js";
 
 const $ = document
