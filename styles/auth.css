@@ -123,6 +123,7 @@ button, input{
 
 input{
     font-family:"Courier New", Courier, monospace ;
+    font-weight: 900;
 }
 
 /* helper classes */
