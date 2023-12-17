@@ -1,10 +1,10 @@
 'use strict'
 
-import { p2e, e2p } from "./convertNumbers.js"
-import { addClass, createCircleForBtn, removeClass } from "./funcs.js"
-import { createModal, removeModal } from "./modal.js"
-import { getAllData, postData } from "./HTTPreq.js"
-import { setCookie, getCookie } from "./cookie.js"
+import { p2e, e2p } from "./convertNumbers.js";
+import { addClass, createCircleForBtn, removeClass } from "./funcs.js";
+import { createModal, removeModal } from "./modal.js";
+import { getAllData, postData } from "./HTTPreq.js";
+import { setCookie, getCookie } from "./cookie.js";
 
 const $ = document
 
@@ -39,13 +39,28 @@ let code = null
 let persianCode = null
 let counter = null
 let codeEnteredByTheUser = ''
+let allUsers = null
 let allUsersArr = null
-let userData = null
 let accessToken = null
 
 // FUNCTIONS
 
 const emptyInputValue = (input) => input.value = ''
+
+const userInfos = (username, userEmail, userPhone) =>{
+    let now = new Date()
+    let date = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`
+    let hours = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+    let userData = {username , userEmail , userPhone, date, hours}
+    return userData
+}
+
+const unequalVerificationCode = () =>{
+    createModal('کد تایید را صحیح وارد نکرده‌اید!!', 'fa fa-close', '#ef4444')
+    pointerEventsDigitsInput()
+    clearInterval(clearCountDown)
+    codeEnteredByTheUser = ''
+}
 
 const convertPersianToEng = () => {
     let allInputs = $.querySelectorAll('input')
@@ -72,8 +87,8 @@ const removeActiveClassToLoadingElmAndAnotherElm = (elm, classname) =>{
 
 const createCode = () =>{
     randomCode = Math.floor(Math.random() * 999_999)
-    if(randomCode > 99_999) return randomCode
-    else createCode()
+    if(randomCode < 99_999) randomCode = 100_000 + Math.floor(Math.random() * 99_999)
+    return randomCode
 }
 
 const validatePhoneNumber = () =>{
@@ -81,8 +96,7 @@ const validatePhoneNumber = () =>{
 
     if(phoneNumberRegex.test(inputElm.value)){
         correctUserInformation(`کد تایید برای این شماره موبایل : ${e2p(inputElm.value)} ساخته شد`)           
-    }
-    else incorrectUserInformation('شماره موبایل شما معتبر نمی‌باشد!!')
+    }else incorrectUserInformation('شماره موبایل شما معتبر نمی‌باشد!!')
 
 }
 
@@ -91,7 +105,7 @@ const validateEmail = () =>{
 
     if(emailRegex.test(inputElm.value)){
         correctUserInformation(`کد تایید برای این ایمیل : ${inputElm.value} ساخته شد`)
-    }else incorrectUserInformation('ایمیل شما معتبر ننننمی‌باشد!!')
+    }else incorrectUserInformation('ایمیل شما معتبر نمی‌باشد!!')
 
 }
 
@@ -150,7 +164,7 @@ const creatingAReverificationCode = () =>{
         removeClass(textCountDown, 'inactive')        
         removeClass(textAlarm, 'active')
         removeClass(btnConfirm, 'inactive')        
-        btnConfirm.style.display = 'block' 
+        removeClass(btnConfirm, 'none')        
         digits.forEach(digitInput => digitInput.style.pointerEvents = 'auto' )
     }, 3000);
 }
@@ -164,26 +178,34 @@ const notFocusEmptyInput = (digitInput, nextDigitInput) =>{
 
 const getAllUsersFromDB = async (userInput) =>{
     try{
-        let allUsers = await getAllData('allUsers')
-        allUsersArr = Object.entries(allUsers)
-        
-        if(isNaN(userInput)){
-            let emailIndex = allUsersArr.findIndex(user => {
-                accessToken = user[0]
-                return user[1].userEmail === userInput
-            })
-
-            if(emailIndex !== -1) existenceOfDataInTheDBHandler(accessToken)
-            else noDataInTheDBHandler(wrapperEmailInput)
+        allUsers = await getAllData('allUsers')
+        if(allUsers){
+            allUsersArr = Object.entries(allUsers)
+            if(isNaN(userInput)){
+                let emailIndex = allUsersArr.findIndex(user => {
+                    if(user[1].userEmail === userInput){
+                        accessToken = user[0]
+                        return user[1].userEmail === userInput
+                    }
+                })
+    
+                if(emailIndex !== -1) existenceOfDataInTheDBHandler(accessToken)
+                else noUserInTheDBHandler(wrapperEmailInput)
+            }else{
+                let phoneIndex = allUsersArr.findIndex(user => {
+                    if(user[1].userPhone === userInput){
+                        accessToken = user[0]
+                        return user[1].userPhone === userInput
+                    }
+                })
+    
+                if(phoneIndex !== -1) existenceOfDataInTheDBHandler(accessToken)
+                else noUserInTheDBHandler(wrapperPhoneInput)
+            }   
         }else{
-            let phoneIndex = allUsersArr.findIndex(user => {
-                accessToken = user[0]
-                return user[1].userPhone === userInput
-            })
-
-            if(phoneIndex !== -1) existenceOfDataInTheDBHandler(accessToken)
-            else noDataInTheDBHandler(wrapperPhoneInput)
-        }    
+            if(isNaN(userInput))noUserInTheDBHandler(wrapperEmailInput)
+            else noUserInTheDBHandler(wrapperPhoneInput)
+        }
     }catch(err){
         console.log(err);
     }
@@ -203,7 +225,7 @@ const existenceOfDataInTheDBHandler = (accessToken) =>{
     setCookie('accessToken', accessToken, 10)
 }
 
-const noDataInTheDBHandler = (elm) =>{
+const noUserInTheDBHandler = (elm) =>{
     removeActiveClassToLoadingElmAndAnotherElm(containerSecondForm, 'active')
     addClass(containerThirdForm, 'active')
     addClass(completionOfInformation, 'active')
@@ -214,38 +236,79 @@ const noDataInTheDBHandler = (elm) =>{
     addClass(elm, 'inactive')
 }
 
-const checkNewUserData = () =>{
-    if(wrapperPhoneInput.classList.contains('inactive')){
-        if((emailRegex.test(userEmailInput.value))){
-            let indexEmail = allUsersArr.findIndex(user => user[1].userEmail === userEmailInput.value)
-            if(indexEmail === -1){
-                userData = {username:usernameInputElm.value , userEmail:userEmailInput.value , userPhone: inputElm.value}
-                submitNewData(userData)
-            }else{
-                createModal('ایمیل شما از قبل وجود دارد لطفا ایمیل دیگری برای خود انتخاب کنید .', 'fa fa-close', '#ef4444')
-            }
-                
-        }else createModal('ایمیل شما معتبر نمی‌باشد!!', 'fa fa-close', '#ef4444')
+const checkNewUserData = async () =>{
+    if(!/^[\w\d]*[\s]*[\w\d\.-_]+$/g.test(usernameInputElm.value)){
+        createModal('لطفا نام کاربری خود را درست وارد کنید', 'fa fa-close', '#ef4444')
 
+    }else if(allUsers){
+        if(wrapperPhoneInput.classList.contains('inactive')){
+            if((emailRegex.test(userEmailInput.value))){
+                let indexEmail = allUsersArr.findIndex(user => user[1].userEmail === userEmailInput.value)
+
+                if(indexEmail === -1){
+                    await postData(userInfos(usernameInputElm.value, userEmailInput.value, inputElm.value), 'allUsers')
+                    allUsers = await getAllData('allUsers')
+                    for(let userId in allUsers){
+                        if(allUsers[userId].userEmail === userEmailInput.value){
+                            accessToken = userId
+                            break
+                        }
+                    }
+                    submitNewData(accessToken)
+                }else{
+                    createModal('ایمیل شما از قبل وجود دارد لطفا ایمیل دیگری برای خود انتخاب کنید .', 'fa fa-close', '#ef4444')
+                }
+                    
+            }else createModal('ایمیل شما معتبر نمی‌باشد!!', 'fa fa-close', '#ef4444')
+    
+        }else{
+            if((phoneNumberRegex.test(userPhoneInput.value))){
+                let indexPhone = allUsersArr.findIndex(user => user[1].userPhone === userPhoneInput.value)
+
+                if(indexPhone === -1){
+                    await postData(userInfos(usernameInputElm.value, inputElm.value, userPhoneInput.value), 'allUsers')
+                    allUsers = await getAllData('allUsers')
+                    for(let userId in allUsers){
+                        if(allUsers[userId].userPhone === userPhoneInput.value){
+                            accessToken = userId
+                            break
+                        }
+                    }
+                    submitNewData(accessToken)
+                }else{
+                    createModal('شماره موبایل شما از قبل وجود دارد لطفا شماره‌ی دیگری برای خود انتخاب کنید .', 'fa fa-close', '#ef4444')
+                }
+            }else createModal('شماره موبایل شما معتبر نمی‌باشد!!', 'fa fa-close', '#ef4444')
+        }
     }else{
-        if((phoneNumberRegex.test(userPhoneInput.value))){
-            let indexPhone = allUsersArr.findIndex(user => user[1].userPhone === userPhoneInput.value)
-            if(indexPhone === -1){
-                userData = {username:usernameInputElm.value , userEmail:inputElm.value , userPhone: userPhoneInput.value}
-                submitNewData(userData)
-            }else{
-                createModal('شماره موبایل شما از قبل وجود دارد لطفا شماره‌ی دیگری برای خود انتخاب کنید .', 'fa fa-close', '#ef4444')
-            }
-        }else createModal('شماره موبایل شما معتبر نمی‌باشد!!', 'fa fa-close', '#ef4444')
+        if(wrapperPhoneInput.classList.contains('inactive')){
+            if((emailRegex.test(userEmailInput.value))){
+                await postData(userInfos(usernameInputElm.value, userEmailInput.value, inputElm.value), 'allUsers')
+                setAccessTokenForFirstUser()
+
+            }else createModal('ایمیل شما معتبر نمی‌باشد!!', 'fa fa-close', '#ef4444')
+    
+        }else{
+            if((phoneNumberRegex.test(userPhoneInput.value))){
+                await postData(userInfos(usernameInputElm.value, inputElm.value, userPhoneInput.value), 'allUsers')
+                setAccessTokenForFirstUser()
+
+            }else createModal('شماره موبایل شما معتبر نمی‌باشد!!', 'fa fa-close', '#ef4444')
+        }
     }
-
-
 }
 
-const submitNewData = () =>{
+const setAccessTokenForFirstUser = async () =>{
+    allUsers = await getAllData('allUsers')
+    allUsersArr = Object.entries(allUsers) 
+    accessToken = allUsersArr[0][0]
+    submitNewData(accessToken)
+}
+
+const submitNewData = (accessToken) =>{
     addActiveClassToLoadingElmAndAnotherElm(btnSubmitInformation, 'inactive')
-    postData(userData, 'allUsers')
     emptyInputValue(inputElm)
+    setCookie('accessToken', accessToken, 10)
     goToIndexPage()
     emptyInputValue(usernameInputElm)
     emptyInputValue(userEmailInput)
@@ -273,11 +336,7 @@ digits.forEach(digitInput =>{
             addActiveClassToLoadingElmAndAnotherElm(btnConfirm, 'none')
             getAllUsersFromDB(inputElm.value)   
         }else if(String(codeEnteredByTheUser).length == 6 && randomCode !== +codeEnteredByTheUser){
-            createModal('کد تایید را صحیح وارد نکرده‌اید!!', 'fa fa-close', '#ef4444')
-            digits.forEach(digitInput => emptyInputValue(digitInput))
-            addClass(textCountDown, 'inactive')        
-            addClass(textAlarm, 'active')  
-            digits[5].focus()
+            unequalVerificationCode()
         }
     })
     
@@ -298,9 +357,7 @@ btnRegister.addEventListener('click', event =>{
     if(inputElm.value){
         if(isNaN(inputElm.value)) validateEmail()
         else validatePhoneNumber()
-    }else{
-        createModal('لطفا شماره موبایل یا ایمیل خود را وارد کنید .', 'fa fa-close', '#ef4444') 
-    } 
+    }else createModal('لطفا شماره موبایل یا ایمیل خود را وارد کنید .', 'fa fa-close', '#ef4444') 
 })
 
 userEmailInput.addEventListener('keyup', removeModal)
@@ -317,6 +374,17 @@ secondFormSvgBack.addEventListener('click', () =>{
 })
 
 textAlarm.addEventListener('click', creatingAReverificationCode) 
+
+btnConfirm.addEventListener('click', event =>{
+    event.preventDefault()
+    if(randomCode !== +codeEnteredByTheUser) unequalVerificationCode()  
+})
+
+usernameInputElm.addEventListener('focus', removeModal)
+
+userEmailInput.addEventListener('focus', removeModal)
+
+userPhoneInput.addEventListener('focus', removeModal)
 
 btnSubmitInformation.addEventListener('click', event =>{
     event.preventDefault()

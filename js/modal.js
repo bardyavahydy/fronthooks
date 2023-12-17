@@ -6,6 +6,7 @@ const createModal = (message ,classes , bgColor) =>{
     let containerModal = document.createElement('div')
     containerModal.className = 'center container-modal'
     containerModal.style.animation = 'modalAnimation 10s linear'
+    containerModal.addEventListener('click', removeModal)
 
     let tickElmModal = document.createElement('i')
     tickElmModal.className = `${classes} ml-svg`
