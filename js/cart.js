@@ -213,7 +213,7 @@ const checkDiscountHandler = () =>{
 
 const theAmountPayableHandler = () =>{
     checkDiscountHandler()
-    theAmountPayable = totalSumWithoutDiscount - totalDiscount
+    theAmountPayable = Math.ceil((totalSumWithoutDiscount - totalDiscount) / 1000) * 1000
     theAmountPayableElm.innerText = sp(theAmountPayable)
 }
 
