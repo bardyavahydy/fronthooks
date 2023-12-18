@@ -366,6 +366,7 @@ class HeaderSite extends HTMLElement{
                 let menuLink = indicator.nextElementSibling
                 addClass(menuLink, 'active')
                 if(window.innerWidth <= 810 && locationAtrr === indicator.getAttribute('data-location')){
+                    indicator.src = '../../imgs/indicator.svg'.slice('../../imgs/indicator.svg'.indexOf('imgs/')) || 'https://bardyavahydy.github.io/imgs/indicato'.slice('https://bardyavahydy.github.io/imgs/indicato'.indexOf('imgs/'))
                     addClass(indicator.parentNode, 'align-items-center')
                     addClass(indicator, 'active')
                 }
