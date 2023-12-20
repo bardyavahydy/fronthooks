@@ -4,12 +4,12 @@ const setCookie = (cookieName, cookieValue, expDay) =>{
     document.cookie = `${cookieName}=${cookieValue}; path=/; expires=${now}`
 }
 
-const getCookie = (cookieName, path = null) =>{
+const getCookie = (cookieName) =>{
     let cookies = document.cookie
     let isLogin = cookies.includes(cookieName)
     let userToken = cookies.slice(cookies.indexOf('=') + 1)
-    if(isLogin && location.href.includes(path)) location.href = './index.html'
-
+    if(!isLogin && location.href.includes('userPanel')) location.href = './auth.html'
+    else if(isLogin && location.href.includes('auth')) location.href = './index.html'
     return {isLogin, userToken}
 }
 
