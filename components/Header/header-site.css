@@ -111,7 +111,7 @@ button{
 }
 
 .mobile-menu-icon__svg{
-    color: var(--color-icon-secondary-dk);
+    color: var(--color-secondary-700);
     width: 2.8rem;
     height: 2.8rem;
 }
@@ -332,11 +332,11 @@ button{
 
 .mobile-user-panel-dashboard__infos{
     font-size: 1.4rem;
-    color: var(--color-icon-secondary-dk);
+    color: var(--color-secondary-700);
 }
 
 .mobile-user-panel-dashboard__profile-link{
-    color: var(--color-icon-secondary-dk);
+    color: var(--color-secondary-700);
     font-weight: 600;
 }
 
@@ -608,10 +608,7 @@ button{
         background: #00000080;
         z-index: 5;
         position: fixed;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        left: 0;
+        inset: 0;
         opacity: 0;
         visibility: hidden;
         transition: .4s;
