@@ -65,7 +65,7 @@ template.innerHTML = `
                 <span class="loading__circle"></span>
             </div>
             <button class="container-course__register-btn transition-bg-3s">ثبت نام در دوره</button>
-            <a href="#" class="container-course__continue-the-order-link transition-bg-3s">ادامه سفارش</a>
+            <a href="./cart.html" class="container-course__continue-the-order-link transition-bg-3s">ادامه سفارش</a>
             <div class="container-course__price-infos">
                 <div class="container-course__container-price-off">
                     <del class="container-course__price-without-off"></del>
@@ -157,7 +157,7 @@ class CourseSite extends HTMLElement{
             })
     
             courseRegisterBtn.addEventListener('click', (event) =>{
-                createCircleForBtn(event, event.target, event.target.offsetWidth)//this => event
+                createCircleForBtn(event, event.target, event.target.offsetWidth)
                 if(isLogin){
                     const selectedCourseInfo = {
                         courseTitle: courseTitle.innerText,
