@@ -393,5 +393,5 @@ btnSubmitInformation.addEventListener('click', event =>{
 
 window.addEventListener('load', () =>{
     form.style.animation = 'formAnimation .4s linear forwards'
-    getCookie('accessToken', 'auth')
+    getCookie('accessToken')
 })
