@@ -326,7 +326,7 @@ digits.forEach(digitInput =>{
             digitInput.blur()
             digitInput.nextElementSibling.focus()
             emptyInputValue(digitInput.nextElementSibling)
-            codeEnteredByTheUser = +(String(codeEnteredByTheUser).slice(0, codeEnteredByTheUser.length - 1))
+            codeEnteredByTheUser = String(codeEnteredByTheUser).slice(0, codeEnteredByTheUser.length - 1)
         }
 
         if(digitInput.value) codeEnteredByTheUser += digitInput.value
