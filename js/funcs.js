@@ -13,4 +13,8 @@ function createCircleForBtn(event, elm, widthElm){
     circle.onanimationend = () => circle.remove() 
 }
 
-export { createCircleForBtn, addClass, removeClass } 
+const convertGregorianDateToSolar = (date) =>{
+    return moment(date, 'YYYY-M-D').locale('fa').format('YYYY/M/D')
+}
+
+export { createCircleForBtn, addClass, removeClass, convertGregorianDateToSolar } 
