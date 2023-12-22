@@ -262,8 +262,6 @@ button{
 }
 
 .mobile-register{
-    position: absolute;
-    bottom: 2.8rem;
     width: 100%;
     padding: 0 2.8rem;
 }
@@ -291,8 +289,6 @@ button{
 
 .container-mobile-user-panel{
     display: none;
-    position: absolute;
-    bottom: 2.8rem;
     width: 100%;
     padding: 0 2.8rem;
 }
@@ -627,8 +623,7 @@ button{
     .container-desktop-logo-menu{
         background: #fff;
         position: absolute;
-        right: 0;
-        right: -48%;
+        right: -28rem;
         top: 0;
         bottom: 0;
         width: 28rem;
@@ -645,8 +640,12 @@ button{
         transition-delay: .3s; 
     }
 
-    .menu__link:hover, .menu-contactUs__link:hover{
-        color: var(--color-secondary-700)
+    .total-container-menu-and-mobile-register-and-mobile-user-panel{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: calc(100% - 6.4rem);
+        padding-bottom: 2.8rem;
     }
     
     .desktop-logo{
@@ -660,8 +659,12 @@ button{
     }
 
     .menu{
+        overflow-y: scroll;
         display: block;
+        width: 100%;
         padding: 4.8rem 2.8rem 0 0;
+        max-height: 24.3rem;
+        margin-bottom: 1.5rem;
     }
 
     .menu__list{
@@ -675,6 +678,10 @@ button{
     .menu__link{
         margin-right: 0;
         padding: .8rem .8rem 0;
+    }
+
+    .menu__link:hover, .menu-contactUs__link:hover{
+        color: var(--color-secondary-700)
     }
 
     .menu__link.active:hover{
