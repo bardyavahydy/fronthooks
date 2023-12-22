@@ -223,6 +223,9 @@ const putSelectedCourses = async () =>{
     let year = date.getFullYear()
     let month = date.getMonth() + 1
     let day = date.getDate()
+    let hours = date.getHours()
+    let minutes = date.getMinutes()
+    let seconds = date.getSeconds()
     
     for(let courseId in coursesObj){
         let courseObj = coursesObj[courseId]
@@ -234,6 +237,7 @@ const putSelectedCourses = async () =>{
             courseDiscountPercent: courseObj.courseDiscountPercent,
             purchaseStatus: 'bought',
             date: `${year}/${month}/${day}`,
+            time: `${hours}:${minutes}:${seconds}`,
             table: courseObj.table
         }
         await Promise.all([putData(selectedCourseInfo, `${userToken}selectedCourseUser`, courseId), setNumberOfCourseStudent(courseObj.table, courseObj.purchaseStatus)])
