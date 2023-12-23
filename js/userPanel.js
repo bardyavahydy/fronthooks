@@ -112,7 +112,7 @@ const allCourseInTableHandler = (courseArr, tbody) =>{
 
         let courseImg = $.createElement('img')
         courseImg.className = 'course-img border-radius-circle'
-        courseImg.src = course.imgCourse.slice(course.imgCourse.indexOf('/imgs'))
+        courseImg.src = `.${course.imgCourse.slice(course.imgCourse.indexOf('/imgs'))}`
 
         let courseName = $.createElement('span')
         courseName.className = 'course-name'
