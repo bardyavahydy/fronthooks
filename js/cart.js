@@ -20,6 +20,7 @@ const totalContainerCourses = $.querySelector('.total-container-courses')
 
 const containerDiscountCodeInput = $.querySelector('.container-discount-code-input')
 const discountCodeInputElm = $.querySelector('.container-discount-code-input__input')
+const applyDiscountCode = $.querySelector('.apply-the-code-btn')
 const totalSumElm = $.querySelector('.total-sum')
 const totalOffElm = $.querySelector('.total-off')
 const theAmountPayableElm = $.querySelector('.container-the-amount-payable-info__price')
@@ -33,6 +34,7 @@ let coursesObj = null
 let totalSumWithoutDiscount = 0
 let totalDiscount = 0
 let theAmountPayable = 0
+let discountCodeObj = {code10: 0.1, code30: 0.3, code50: 0.5, }
 
 //FUNCTIONS
 
@@ -271,15 +273,32 @@ const setNumberOfCourseStudent = async (courseTable, purchaseStatus) =>{
     }
 }
 
+const applyDiscountCodeHandler = () =>{
+    let off = discountCodeObj[discountCodeInputElm.value]
+    addClass(loading, 'active')
+    addClass(applyDiscountCode, 'inactive')
+
+    setTimeout(() => {
+        if(off){
+            totalDiscount = totalSumWithoutDiscount * off
+            theAmountPayable = Math.ceil((totalSumWithoutDiscount - (totalSumWithoutDiscount * off)) / 1000) * 1000
+            theAmountPayableElm.innerText = sp(theAmountPayable)
+            totalOffElm.innerText = `${sp(totalDiscount)} -`
+        }else createModal('کد تخفیف وارد شده وجود ندارد', 'fa fa-close', '#ef4444')
+
+        discountCodeInputElm.value = ''
+        removeClass(loading, 'active')
+        removeClass(applyDiscountCode, 'inactive')
+    }, 2000);
+}
+
 //EVENTS
 
-discountCodeInputElm.addEventListener('focus', () =>{
-    addClass(containerDiscountCodeInput, 'new-style')
-})
+discountCodeInputElm.addEventListener('focus', () => addClass(containerDiscountCodeInput, 'new-style'))
 
-discountCodeInputElm.addEventListener('blur', () =>{
-    removeClass(containerDiscountCodeInput, 'new-style')
-})
+discountCodeInputElm.addEventListener('blur', () => removeClass(containerDiscountCodeInput, 'new-style'))
+
+applyDiscountCode.addEventListener('click' , applyDiscountCodeHandler)
 
 paymentBtn.addEventListener('click', () =>{
     addActiveToLoadingAndAddInactiveToAnotherElm(loading, paymentBtn)
