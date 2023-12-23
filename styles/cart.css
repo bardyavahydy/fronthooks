@@ -508,6 +508,10 @@ button{
     padding: 1.8rem 0;
 }
 
+.apply-the-code-btn + .loading{
+    padding: 1.1rem 0;
+}
+
 .loading.active{
     display: flex;
 }
@@ -526,7 +530,7 @@ button{
     -webkit-animation: sacle1Toscale13 .5s ease-in-out alternate infinite;
 }
 
-.container-calculations .loading__circle{
+.payment-btn + .loading__circle{
     width: 1.3rem;
     height: 1.3rem;
 }
@@ -537,7 +541,7 @@ button{
     -webkit-animation: sacle13Toscale1 .5s ease-in-out alternate infinite;
 }
 
-.container-calculations .loading__circle--mid{
+.payment-btn .loading__circle--mid{
     margin: 0 .5rem;
 }
 
