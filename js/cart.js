@@ -2,7 +2,7 @@
 
 import { HeaderSite } from "../components/Header/header-site.js";
 import { FooterSite } from "../components/Footer/footer-site.js";
-import { addClass, removeClass, createCircleForBtn, convertGregorianDateToSolar } from "./funcs.js";
+import { addClass, removeClass, createCircleForBtn, SetTheDate, SetTheTime } from "./funcs.js";
 import { createModal } from "./modal.js";
 import { getAllData, postData, putData, deleteData } from "./HTTPreq.js";
 import { getCookie } from "./cookie.js";
@@ -222,8 +222,8 @@ const putSelectedCourses = async () =>{
                 coursePriceWithoutOff: courseObj.coursePriceWithoutOff,
                 courseDiscountPercent: courseObj.courseDiscountPercent,
                 purchaseStatus: 'bought',
-                date: SetTheDate(),
-                time: SetTheTime(),
+                date: e2p(SetTheDate()),
+                time: e2p(SetTheTime()),
                 table: courseObj.table
             }
             await Promise.all([putData(selectedCourseInfo, `${userToken}selectedCourseUser`, courseId), setNumberOfCourseStudent(courseObj.table, courseObj.purchaseStatus)])
@@ -235,36 +235,6 @@ const putSelectedCourses = async () =>{
     addInactiveClassToCalculationsAndCoursesSectionAndAnotherElm(containerMsgLogout)
     addClass(containerMsgGoToCoursesPage, 'active')
     newStudent()
-}
-
-const SetTheDate = () =>{
-    let date = new Date()
-    let year = date.getFullYear()
-    let month = date.getMonth() + 1
-    let day = date.getDate()
-
-    let solarDate = convertGregorianDateToSolar(`${year}/${month}/${day}`)
-    year = +solarDate.slice(0, 4)
-    month = +solarDate.slice(solarDate.indexOf('/') + 1, solarDate.lastIndexOf('/'))
-    day = +solarDate.slice(solarDate.lastIndexOf('/') + 1)
-
-    if(month <= 9) month = `0${month}`
-    if(day <= 9) day = `0${day}`
-
-    return e2p(`${year}/${month}/${day}`)
-}
-
-const SetTheTime = () =>{
-    let time = new Date()
-    let hours = time.getHours()
-    let minutes = time.getMinutes()
-    let seconds = time.getSeconds()
-
-    if(hours <= 9) hours = `0${hours}`
-    if(minutes <= 9) minutes = `0${minutes}`
-    if(seconds <= 9) seconds = `0${seconds}`
-
-    return `${hours}:${minutes}:${seconds}`
 }
 
 const newStudent = async () =>{
