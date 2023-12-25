@@ -1,7 +1,7 @@
 'use strict'
 
 import { p2e, e2p } from "./convertNumbers.js";
-import { addClass, createCircleForBtn, removeClass } from "./funcs.js";
+import { addClass, createCircleForBtn, removeClass, SetTheDate, SetTheTime } from "./funcs.js";
 import { createModal, removeModal } from "./modal.js";
 import { getAllData, postData } from "./HTTPreq.js";
 import { setCookie, getCookie } from "./cookie.js";
@@ -49,8 +49,8 @@ const emptyInputValue = (input) => input.value = ''
 
 const userInfos = (username, userEmail, userPhone) =>{
     let now = new Date()
-    let date = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`
-    let hours = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+    let date = e2p(SetTheDate())
+    let hours = e2p(SetTheTime())
     let userData = {username , userEmail , userPhone, date, hours}
     return userData
 }
@@ -237,7 +237,7 @@ const noUserInTheDBHandler = (elm) =>{
 }
 
 const checkNewUserData = async () =>{
-    if(!/^[\w\d]*[\s]*[\w\d\.-_]+$/g.test(usernameInputElm.value)){
+    if((!/^[\w\d]*[\s]*[\w\d\.-_]+$/ || /^[ا-ی۰-۹]*[\s]*[ا-ی۰-۹\.-_]+$/).test(usernameInputElm.value)){
         createModal('لطفا نام کاربری خود را درست وارد کنید', 'fa fa-close', '#ef4444')
 
     }else if(allUsers){
