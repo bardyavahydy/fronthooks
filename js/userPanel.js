@@ -1,6 +1,6 @@
 'use strict'
 
-import { addClass, removeClass, createCircleForBtn, convertGregorianDateToSolar } from "./funcs.js";
+import { addClass, removeClass, createCircleForBtn } from "./funcs.js";
 import { getCookie, setCookie } from "./cookie.js";
 import { getAllData } from "./HTTPreq.js";
 import { e2p, sp } from "./convertNumbers.js";
@@ -35,18 +35,16 @@ let locationSearch = location.search
 let locationSearchParam = new URLSearchParams(locationSearch)
 let userParam = locationSearchParam.get('param')
 let numberOfOrder = 0
-let date = null
 let trFragment =  $.createDocumentFragment()
 
 //FUNCTIONS
 
 const getUser = async () =>{
     let userObj = await getAllData(`allUsers/${userToken}`)
-    date = convertGregorianDateToSolar(userObj.date)
     userPanelUsername.innerText = userObj.username
     containerWelcomeUsername.innerText = `${userObj.username} عزیز😍؛`
     headerTitleText.innerText = `سلام؛ ${userObj.username}`
-    myRecordsWrapperDate.innerText = e2p(date)
+    myRecordsWrapperDate.innerText = userObj.date
 }
 
 const getCourses = async () =>{
