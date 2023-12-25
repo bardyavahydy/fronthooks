@@ -178,11 +178,8 @@ button{
 /* container msg */
 
 .total-container-msg, .total-container-calculations-and-courses{
-
-    /* display: none; */
-
     max-width: 102.4rem;
-    margin: 7rem auto 4rem;
+    margin: 7rem auto 12rem;
     padding-top: 2.4rem;
     padding-bottom: 2.4rem;
 }
@@ -206,6 +203,7 @@ button{
 .total-container-calculations-and-courses{
     padding-top: 0;
     padding-bottom: 0;
+    margin-bottom: 4rem;
 }
 
 .title-page{
@@ -670,6 +668,10 @@ button{
     
     .container{
         max-width: 60.8rem;
+    }
+
+    .total-container-msg{
+        margin: 7rem auto 4rem;
     }
 
     .container-course__link-course {
