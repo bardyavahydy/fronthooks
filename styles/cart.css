@@ -530,7 +530,7 @@ button{
     -webkit-animation: sacle1Toscale13 .5s ease-in-out alternate infinite;
 }
 
-.payment-btn + .loading__circle{
+.payment-btn + .loading .loading__circle{
     width: 1.3rem;
     height: 1.3rem;
 }
@@ -541,7 +541,7 @@ button{
     -webkit-animation: sacle13Toscale1 .5s ease-in-out alternate infinite;
 }
 
-.payment-btn .loading__circle--mid{
+.payment-btn + .loading .loading__circle--mid{
     margin: 0 .5rem;
 }
 
