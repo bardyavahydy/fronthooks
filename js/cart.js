@@ -2,7 +2,7 @@
 
 import { HeaderSite } from "../components/Header/header-site.js";
 import { FooterSite } from "../components/Footer/footer-site.js";
-import { addClass, removeClass, createCircleForBtn } from "./funcs.js";
+import { addClass, removeClass, createCircleForBtn, convertGregorianDateToSolar } from "./funcs.js";
 import { createModal } from "./modal.js";
 import { getAllData, postData, putData, deleteData } from "./HTTPreq.js";
 import { getCookie } from "./cookie.js";
@@ -25,7 +25,7 @@ const totalSumElm = $.querySelector('.total-sum')
 const totalOffElm = $.querySelector('.total-off')
 const theAmountPayableElm = $.querySelector('.container-the-amount-payable-info__price')
 const paymentBtn = $.querySelector('.payment-btn')
-const loading = $.querySelector('.container-calculations .loading')
+const loadings = $.querySelectorAll('.container-calculations .loading')
 
 let coursesFragment = $.createDocumentFragment()
 let tokenObj = getCookie('accessToken')
@@ -135,10 +135,11 @@ const generateCourseToDom = (coursesObj) =>{
                 containerCourseDiscountPercent.className = 'container-course__discount-percent border-radius'
                 containerCourseDiscountPercent.innerText = `${e2p(courseObj.courseDiscountPercent)}٪`
                 totalDiscountHandler(courseObj.coursePriceWithoutOff, courseObj.courseDiscountPercent)
-
+                
                 containerCorseOffInfo.append(containerCourseCoursePriceWithoutOff, containerCourseDiscountPercent)
             }else{
                 addClass(containerCorseOffInfo, 'inactive')
+                totalDiscountHandler(courseObj.coursePriceWithoutOff, 0)
                 totalPurchaseWithoutDiscount(courseObj.price)
             }
             
@@ -204,56 +205,69 @@ const totalDiscountHandler = (mainPrice, courseDiscountPercent) =>{
     totalOffElm.innerText = `${sp(totalDiscount)} -`
 }
 
-const checkDiscountHandler = () =>{
-    let coursesArr = Object.entries(coursesObj)
-    let isTrue = coursesArr.every(course => course[1].courseDiscountPercent === '')
-    if(isTrue){
-        totalDiscount = 0
-        totalOffElm.innerText = `${sp(totalDiscount)} -`
-    }
-}
-
 const theAmountPayableHandler = () =>{
-    checkDiscountHandler()
     theAmountPayable = Math.ceil((totalSumWithoutDiscount - totalDiscount) / 1000) * 1000
     theAmountPayableElm.innerText = sp(theAmountPayable)
 }
 
 
-const putSelectedCourses = async () =>{
-    let date = new Date()
-    let year = date.getFullYear()
-    let month = date.getMonth() + 1
-    let day = date.getDate()
-    let hours = date.getHours()
-    let minutes = date.getMinutes()
-    let seconds = date.getSeconds()
-    
+const putSelectedCourses = async () =>{    
     for(let courseId in coursesObj){
         let courseObj = coursesObj[courseId]
-        const selectedCourseInfo = {
-            courseTitle: courseObj.courseTitle,
-            imgCourse: courseObj.imgCourse,
-            price: courseObj.price,
-            coursePriceWithoutOff: courseObj.coursePriceWithoutOff,
-            courseDiscountPercent: courseObj.courseDiscountPercent,
-            purchaseStatus: 'bought',
-            date: `${year}/${month}/${day}`,
-            time: `${hours}:${minutes}:${seconds}`,
-            table: courseObj.table
+        if(courseObj.purchaseStatus !== "bought"){
+            const selectedCourseInfo = {
+                courseTitle: courseObj.courseTitle,
+                imgCourse: courseObj.imgCourse,
+                price: courseObj.price,
+                coursePriceWithoutOff: courseObj.coursePriceWithoutOff,
+                courseDiscountPercent: courseObj.courseDiscountPercent,
+                purchaseStatus: 'bought',
+                date: SetTheDate(),
+                time: SetTheTime(),
+                table: courseObj.table
+            }
+            await Promise.all([putData(selectedCourseInfo, `${userToken}selectedCourseUser`, courseId), setNumberOfCourseStudent(courseObj.table, courseObj.purchaseStatus)])
         }
-        await Promise.all([putData(selectedCourseInfo, `${userToken}selectedCourseUser`, courseId), setNumberOfCourseStudent(courseObj.table, courseObj.purchaseStatus)])
     }
     createModal('دوره‌ها با موفقیت خریداری شدند .', 'fa fa-check', '#00c073')
     addActiveAndRemoveInactiveFromTotalContainerMsg()
-    removeActiveToLoadingAndRemoveInactiveToAnotherElm(loading, paymentBtn)
+    removeActiveToLoadingAndRemoveInactiveToAnotherElm(loadings[1], paymentBtn)
     addInactiveClassToCalculationsAndCoursesSectionAndAnotherElm(containerMsgLogout)
     addClass(containerMsgGoToCoursesPage, 'active')
     newStudent()
 }
 
-const newStudent = async () =>{
+const SetTheDate = () =>{
+    let date = new Date()
+    let year = date.getFullYear()
+    let month = date.getMonth() + 1
+    let day = date.getDate()
 
+    let solarDate = convertGregorianDateToSolar(`${year}/${month}/${day}`)
+    year = +solarDate.slice(0, 4)
+    month = +solarDate.slice(solarDate.indexOf('/') + 1, solarDate.lastIndexOf('/'))
+    day = +solarDate.slice(solarDate.lastIndexOf('/') + 1)
+
+    if(month <= 9) month = `0${month}`
+    if(day <= 9) day = `0${day}`
+
+    return e2p(`${year}/${month}/${day}`)
+}
+
+const SetTheTime = () =>{
+    let time = new Date()
+    let hours = time.getHours()
+    let minutes = time.getMinutes()
+    let seconds = time.getSeconds()
+
+    if(hours <= 9) hours = `0${hours}`
+    if(minutes <= 9) minutes = `0${minutes}`
+    if(seconds <= 9) seconds = `0${seconds}`
+
+    return `${hours}:${minutes}:${seconds}`
+}
+
+const newStudent = async () =>{
     const [allStudents, user] = await Promise.all([getAllData('allStudents'), getAllData(`allUsers/${userToken}`)])
     if(allStudents){
         let allStudentsArr = Object.entries(allStudents)
@@ -275,8 +289,7 @@ const setNumberOfCourseStudent = async (courseTable, purchaseStatus) =>{
 
 const applyDiscountCodeHandler = () =>{
     let off = discountCodeObj[discountCodeInputElm.value]
-    addClass(loading, 'active')
-    addClass(applyDiscountCode, 'inactive')
+    addActiveToLoadingAndAddInactiveToAnotherElm(loadings[0], applyDiscountCode)
 
     setTimeout(() => {
         if(off){
@@ -287,8 +300,7 @@ const applyDiscountCodeHandler = () =>{
         }else createModal('کد تخفیف وارد شده وجود ندارد', 'fa fa-close', '#ef4444')
 
         discountCodeInputElm.value = ''
-        removeClass(loading, 'active')
-        removeClass(applyDiscountCode, 'inactive')
+        removeActiveToLoadingAndRemoveInactiveToAnotherElm(loadings[0], applyDiscountCode)
     }, 2000);
 }
 
@@ -301,7 +313,7 @@ discountCodeInputElm.addEventListener('blur', () => removeClass(containerDiscoun
 applyDiscountCode.addEventListener('click' , applyDiscountCodeHandler)
 
 paymentBtn.addEventListener('click', () =>{
-    addActiveToLoadingAndAddInactiveToAnotherElm(loading, paymentBtn)
+    addActiveToLoadingAndAddInactiveToAnotherElm(loadings[1], paymentBtn)
     putSelectedCourses()
 })
 
