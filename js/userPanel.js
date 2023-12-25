@@ -136,7 +136,7 @@ const allCourseInTableHandler = (courseArr, tbody) =>{
             let date = $.createElement('p')     
             let time = $.createElement('p')
 
-            date.innerText = e2p(convertGregorianDateToSolar(course.date))
+            date.innerText = course.date
             time.innerText = e2p(course.time)
             tdDate.append(date, time)
         }
