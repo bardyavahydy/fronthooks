@@ -1,6 +1,6 @@
 import { createModal } from "./modal.js" 
 
-const BASE_URL = 'https://fronthooks3-default-rtdb.firebaseio.com/'
+const BASE_URL = 'https://fronthooks4-default-rtdb.firebaseio.com/'
 
 const getAllData = async (table) =>{
     try{
