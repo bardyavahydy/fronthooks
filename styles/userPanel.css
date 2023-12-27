@@ -403,16 +403,15 @@ button{
     background: #f4f5f7;
     position: fixed;
     top: 8rem;
-    height: calc(100vh - 8rem);
+    height: calc(100% - 8rem);
     width: calc(100% - 24rem);
     border-top-right-radius: 3rem;
-    overflow-y: hidden;
 }
 
 .container-main-content{
     overflow-y: scroll;
     padding: 4rem 4rem 0 4rem;
-    height: calc(100vh - 12rem);
+    height: calc(100% - 4rem);
 }
 
 .container-welcome{
@@ -567,6 +566,7 @@ button{
 }
 
 .thead__th{
+    text-align: center;
     color: #94a3b8;
     font-size: 1.4rem;
     font-weight: 300;
@@ -663,6 +663,7 @@ button{
 /* my courses */
 
 .tbody-orders .tbody__td{
+    text-align: center;
     color: #64748b;
     font-size: 1.4rem;
 }
@@ -690,6 +691,11 @@ button{
     -moz-border-radius: .8rem;
     -ms-border-radius: .8rem;
     -o-border-radius: .8rem;
+}
+
+.msg{
+    color: var(--color-red-500);
+    font-weight: 500;
 }
 
 /* circle */
@@ -791,8 +797,10 @@ button{
     }
 
     .aside {
-        width: 28rem;
+        position: absolute;
         right: -28rem;
+        bottom: 0;
+        width: 28rem;
         transition: right .3s;
         -webkit-transition: right .3s;
         -moz-transition: right .3s;
@@ -850,7 +858,7 @@ button{
     .container-main-content{
         padding: 2.4rem 2.4rem 0 2.4rem;
         width: 100%;
-        height: calc(100vh - 10.4rem);
+        height: calc(100% - 2.4rem);
     }
 
     .container-welcome{
@@ -874,7 +882,7 @@ button{
 @media (max-width: 767px){
     .container-main-content{
         padding: 1.6rem 1.6rem 0 1.6rem;
-        height: calc(100vh - 9.6rem);
+        height: calc(100% - 1.6rem);
     }
 
     .container-my-records{
