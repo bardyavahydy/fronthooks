@@ -236,11 +236,14 @@ const noUserInTheDBHandler = (elm) =>{
     addClass(elm, 'inactive')
 }
 
-const checkNewUserData = async () =>{
-    if((!/^[\w\d]*[\s]*[\w\d\.-_]+$/ || /^[ا-ی۰-۹]*[\s]*[ا-ی۰-۹\.-_]+$/).test(usernameInputElm.value)){
-        createModal('لطفا نام کاربری خود را درست وارد کنید', 'fa fa-close', '#ef4444')
+const checkNewUserData = () =>{
+    if(!/^[\w\d]+[\w\d\.\-\s_]*$/.test(usernameInputElm.value)) checkAllUsers()
+    else if(!/^[آا-ی۰-۹]+[ا-ی۰-۹آ\.\-\s_]*$/.test(usernameInputElm.value)) checkAllUsers() 
+    else createModal('لطفا نام کاربری خود را درست وارد کنید', 'fa fa-close', '#ef4444')
+}
 
-    }else if(allUsers){
+const checkAllUsers = async () =>{
+    if(allUsers){
         if(wrapperPhoneInput.classList.contains('inactive')){
             if((emailRegex.test(userEmailInput.value))){
                 let indexEmail = allUsersArr.findIndex(user => user[1].userEmail === userEmailInput.value)
