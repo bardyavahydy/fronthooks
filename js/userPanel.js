@@ -76,24 +76,30 @@ const showTableHandler = (coursesObj, coursesArr, selectedCourseArr) =>{
             addClass(containerTable, 'inactive')
             addClass(warningProfile, 'active')
         }
-    }else if(userParam === 'orders'){
-        if(coursesObj) allCourseInTableHandler(selectedCourseArr, tbodyCourses)
-        else{
-            let warningOrders = totalContainerMainContents[1].firstElementChild.firstElementChild.nextElementSibling
-            addClass(totalContainerMainContents[1].firstElementChild.firstElementChild, 'inactive')
-            addClass(totalContainerMainContents[1].firstElementChild.lastElementChild, 'inactive')
-            addClass(warningOrders, 'active')
-        }
+    }else if(userParam === 'orders') purchaseProcessHandler(coursesObj, selectedCourseArr, 1, tbodyCourses, allCourseInTableHandler)
+    else if(userParam === 'courses') purchaseProcessHandler(coursesObj, selectedCourseArr, 2, tbodyOrders, coursesIntBodyOrders)
+}
+
+const purchaseProcessHandler = (coursesObj, selectedCourseArr, index, tbody, callback) =>{
+    if(coursesObj){
+        if(selectedCourseArr.length > 0) callback(selectedCourseArr, tbody)
+        else createMsg(totalContainerMainContents[index])
+    }else{
+        let warningOrders = totalContainerMainContents[index].firstElementChild.firstElementChild.nextElementSibling
+        addClass(totalContainerMainContents[index].firstElementChild.firstElementChild, 'inactive')
+        addClass(totalContainerMainContents[index].firstElementChild.lastElementChild, 'inactive')
+        addClass(warningOrders, 'active')
     }
-    else if(userParam === 'courses'){
-        if(coursesObj) coursesIntBodyOrders(selectedCourseArr)
-        else{
-            let warningOrders = totalContainerMainContents[2].firstElementChild.firstElementChild.nextElementSibling
-            addClass(totalContainerMainContents[2].firstElementChild.firstElementChild, 'inactive')
-            addClass(totalContainerMainContents[2].firstElementChild.lastElementChild, 'inactive')
-            addClass(warningOrders, 'active')
-        }
-    }
+}
+
+const createMsg = (totalContainerMainContent) =>{
+    let containerTable = totalContainerMainContent.querySelector('.container-table')
+    let table = totalContainerMainContent.querySelector('.table')
+    removeClass(table, 'inactive')
+
+    containerTable.innerHTML = `
+        <p class="msg">هنوز فرآیند خرید شما تکمیل نشده است .</P>
+    `
 }
 
 const allCourseInTableHandler = (courseArr, tbody) =>{
@@ -207,6 +213,15 @@ const coursesIntBodyOrders = (selectedCourseArr) =>{
     tbodyOrders.append(trFragment)
 }
 
+const checkInnerHeight = (elm) =>{
+    if(window.innerHeight > 704 && window.innerWidth < 1024){
+        sectionAside.style.height = '73.4rem'
+        elm.style.height = '65.4rem'
+        let containerMainContent = elm.firstElementChild
+        containerMainContent.style.height = 'calc(100% - 1.6rem)'
+    }
+}
+
 //EVENTS
 
 asideMenuLists.forEach(asideMenuList =>{
@@ -272,14 +287,17 @@ window.addEventListener('DOMContentLoaded', () =>{
             if(userParam === 'profile'){
                 title.innerText = `پنل کاربری - داشبورد`
                 totalContainerMainContents[0].style.display = 'block'
+                checkInnerHeight(totalContainerMainContents[0])
             }
             else if(userParam === 'orders'){
                 title.innerText = `پنل کاربری - سفارش‌های من`
                 totalContainerMainContents[1].style.display = 'block'
+                checkInnerHeight(totalContainerMainContents[1])
             }
             else if(userParam === 'courses'){
                 title.innerText = `پنل کاربری - دوره‌های من`
                 totalContainerMainContents[2].style.display = 'block'
+                checkInnerHeight(totalContainerMainContents[2])
             }
             return true
         }
