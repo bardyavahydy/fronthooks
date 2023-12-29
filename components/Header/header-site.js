@@ -125,17 +125,17 @@ template.innerHTML = `
                         <div class="mobile-user-panel space-between">
                             <di class="mobile-user-panel-dashboard align-items-center">
                                 <div class="mobile-user-panel-dashboard__container-img border-radius-circle">
-                                    <a href="#" class="mobile-user-panel-dashboard__link">
+                                    <a href="./userPanel.html?param=profile" class="mobile-user-panel-dashboard__link">
                                     <img src="./imgs/user1.jpeg" alt="user" class="mobile-user-panel-dashboard__img Hfull-Vful border-radius-circle">
                                     </a>
                                 </div>
                                 <div class="mobile-user-panel-dashboard__infos">
-                                    <a href="#" class="mobile-user-panel-dashboard__profile-link">bardya vahydy</a>
+                                    <a href="./userPanel.html?param=profile" class="mobile-user-panel-dashboard__profile-link">bardya vahydy</a>
                                     <p class="mobile-user-panel-dashboard__type-user">دانشجو</p>
                                 </div>
                             </di>
                             <div class="mobile-user-panel-profile">
-                                <a href="#" class="mobile-user-panel-profile__profile-link transition-bg-3s border-radius-circle">
+                                <a href="./userPanel.html?param=me" class="mobile-user-panel-profile__profile-link transition-bg-3s border-radius-circle">
                                     <svg viewBox="0 0 14 14" fill="none" class="mobile-user-panel-profile__svg">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.875" d="M7.779 11.38h3.72"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.875" d="M9.367 2.834v0a1.774 1.774 0 0 0-2.484.354L2.945 8.436c-1.015 1.352-.055 3.027-.055 3.027s1.892.435 2.892-.898L9.72 5.318a1.774 1.774 0 0 0-.354-2.484Z" clip-rule="evenodd"></path><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.875" d="m6.127 4.207 2.838 2.13"></path>
                                     </svg>
