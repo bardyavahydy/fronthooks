@@ -27,9 +27,9 @@ const postData = async (data, table) =>{
     }
 }
 
-const putData = async (data, table, courseId) =>{
+const putData = async (data, table, id) =>{
     try{
-        let res = await fetch(`${BASE_URL}${table}/${courseId}.json`,{
+        let res = await fetch(`${BASE_URL}${table}/${id}.json`,{
             method:'PUT',
             headers:{
                 "Content-type": 'application/json'
@@ -41,9 +41,9 @@ const putData = async (data, table, courseId) =>{
     }
 }
 
-const deleteData = async (table, CourseId) =>{
+const deleteData = async (table, id) =>{
     try{
-        let res = await fetch(`${BASE_URL}${table}/${CourseId}.json`,{
+        let res = await fetch(`${BASE_URL}${table}/${id}.json`,{
             method:'DELETE'
         })
     }catch(err){
