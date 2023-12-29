@@ -226,6 +226,7 @@ const existenceOfDataInTheDBHandler = (accessToken) =>{
 }
 
 const noUserInTheDBHandler = (elm) =>{
+    createModal('کد تایید شد ٬ لطفا اطلاعات خود را وارد کنید .', 'fa fa-check', '#00c073')
     removeActiveClassToLoadingElmAndAnotherElm(containerSecondForm, 'active')
     addClass(containerThirdForm, 'active')
     addClass(completionOfInformation, 'active')
@@ -238,8 +239,11 @@ const noUserInTheDBHandler = (elm) =>{
 
 const checkNewUserData = () =>{
     if(!/^[\w\d]+[\w\d\.\-\s_]*$/.test(usernameInputElm.value)) checkAllUsers()
-    else if(!/^[آا-ی۰-۹]+[ا-ی۰-۹آ\.\-\s_]*$/.test(usernameInputElm.value)) checkAllUsers() 
-    else createModal('لطفا نام کاربری خود را درست وارد کنید', 'fa fa-close', '#ef4444')
+    else if(!/^[آا-ی۰-۹]+[ا-ی۰-۹آ\.\-\s_]*$/.test(usernameInputElm.value)){
+        if(usernameInputElm.value.length > 6) checkAllUsers() 
+        else createModal('نام و نام خانوادگی باید حداقل شامل 6 کاراکتر باشد', 'fa fa-close', '#ef4444')
+
+    }else createModal('لطفا نام کاربری خود را درست وارد کنید', 'fa fa-close', '#ef4444')
 }
 
 const checkAllUsers = async () =>{
