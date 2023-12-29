@@ -2,8 +2,9 @@
 
 import { addClass, removeClass, createCircleForBtn } from "./funcs.js";
 import { getCookie, setCookie } from "./cookie.js";
-import { getAllData } from "./HTTPreq.js";
+import { getAllData, putData } from "./HTTPreq.js";
 import { e2p, sp } from "./convertNumbers.js";
+import { createModal } from "./modal.js";
 
 const $ = document
 const body = $.body
@@ -28,6 +29,13 @@ const myRecordsWrapperOrders = $.querySelector('.my-records-wrapper__orders')
 const tbodyProfile = $.querySelector('.tbody-profile')
 const tbodyCourses = $.querySelector('.tbody-courses')
 const tbodyOrders = $.querySelector('.tbody-orders')
+const profileUsername = $.querySelector('.container-username__name')
+const containerUsernameType = $.querySelector('.container-username__type')
+const inputs = Array.from($.querySelectorAll('.input'))
+const inputName = $.getElementById('input-name')
+const inputEmail = $.getElementById('input-email')
+const inputAreaOfExpertise = $.getElementById('input-area-of-expertise')
+const recordChanges = $.querySelector('.record-changes')
 
 let tokenObj = getCookie('accessToken')
 let {isLogin, userToken} = tokenObj
@@ -36,6 +44,8 @@ let locationSearchParam = new URLSearchParams(locationSearch)
 let userParam = locationSearchParam.get('param')
 let numberOfOrder = 0
 let trFragment =  $.createDocumentFragment()
+let userPhone = null
+let registrationTime = null
 
 //FUNCTIONS
 
@@ -45,6 +55,13 @@ const getUser = async () =>{
     containerWelcomeUsername.innerText = `${userObj.username} عزیز😍؛`
     headerTitleText.innerText = `سلام؛ ${userObj.username}`
     myRecordsWrapperDate.innerText = userObj.date
+    profileUsername.innerText = userObj.username
+    containerUsernameType.innerText = userObj.areaOfExpertise || 'دانشجو'
+    inputName.value = userObj.username
+    inputEmail.value = userObj.userEmail   
+    inputAreaOfExpertise.value = userObj.areaOfExpertise || ''
+    userPhone = userObj.userPhone 
+    registrationTime = userObj.hours 
 }
 
 const getCourses = async () =>{
@@ -214,12 +231,66 @@ const coursesIntBodyOrders = (selectedCourseArr) =>{
 }
 
 const checkInnerHeight = (elm) =>{
-    if(window.innerHeight > 704 && window.innerWidth < 1024){
-        sectionAside.style.height = '73.4rem'
-        elm.style.height = '65.4rem'
-        let containerMainContent = elm.firstElementChild
-        containerMainContent.style.height = 'calc(100% - 1.6rem)'
+    setTimeout(() => {
+        if(window.innerHeight > 704 && window.innerWidth < 1024){
+            sectionAside.style.height = '73.4rem'
+            elm.style.height = '65.4rem'
+            let containerMainContent = elm.firstElementChild
+            containerMainContent.style.height = 'calc(100% - 1.6rem)'
+        }
+    }, 3000);
+}
+
+const checkInputNameValue = () =>{
+    if(/^[\w\d]+[\w\d\.\-\s_]*$/.test(inputName.value)){
+        if(inputName.value.length < 6){
+            addClass(inputName, 'false')
+            createModal('نام و نام خانوادگی باید حداقل شامل 6 کاراکتر باشد', 'fa fa-close', '#ef4444')
+        }else removeClass(inputName, 'false')
+
+    }else if(/^[آا-ی۰-۹]+[ا-ی۰-۹آ\.\-\s_]*$/.test(inputName.value)){
+        if(inputName.value.length < 6){
+            addClass(inputName, 'false')
+            createModal('نام و نام خانوادگی باید حداقل شامل 6 کاراکتر باشد', 'fa fa-close', '#ef4444')
+        }else removeClass(inputName, 'false')
+
+    }else createModal('لطفا نام کاربری خود را درست وارد کنید', 'fa fa-close', '#ef4444')
+
+}
+
+const checkInputEmailValue = () =>{
+    if(/^[\w]+[\.-]?\w+@(gmail|yahoo)\.com$/.test(inputEmail.value)){
+        removeClass(inputEmail, 'false')
+    }else{
+        createModal('لطفا ایمیل خود را درست وارد کنید', 'fa fa-close', '#ef4444')
+        addClass(inputEmail, 'false')
     }
+}
+
+const checkInputAreaOfExpertiseValue = () =>{
+    if(['فرانت‌اند', 'بک‌اند', 'فرانت اند', 'بک اند'].includes(inputAreaOfExpertise.value)) removeClass(inputAreaOfExpertise, 'false')
+    else{
+        createModal('لطفا حوزه تخصصی خود را درست وارد کنید', 'fa fa-close', '#ef4444')
+        addClass(inputAreaOfExpertise, 'false')
+    }
+}
+
+const getAllUsers = async () =>{
+    let allUsersObj = await getAllData('allUsers')
+    let allUsersArr = Object.entries(allUsersObj)
+    let emailIndex = allUsersArr.findIndex(item => item[1].userEmail === inputEmail.value)
+
+    if(emailIndex === -1) putNewUserDateInDB()
+    else{
+        if(userPhone === allUsersArr[emailIndex][1].userPhone) putNewUserDateInDB()  
+        else createModal('ایمیل شما از قبل وجود دارد لطفا ایمیل دیگری برای خود انتخاب کنید .', 'fa fa-close', '#ef4444')
+    }
+}
+
+const putNewUserDateInDB = async () =>{
+    let userData = {date: myRecordsWrapperDate.innerText, hours: registrationTime, userEmail: inputEmail.value, userPhone, username: inputName.value, areaOfExpertise: inputAreaOfExpertise.value}
+    await putData(userData, 'allUsers', userToken)
+    location.reload()
 }
 
 //EVENTS
@@ -273,6 +344,26 @@ userProfileLink.addEventListener('click', function(event){
     createCircleForBtn(event, this, this.offsetWidth)
 })
 
+inputs.forEach(input => input.addEventListener('focus', () => addClass(input, 'focus')))
+
+inputs.forEach(input => input.addEventListener('blur', () => removeClass(input, 'focus')))
+
+
+inputName.addEventListener('blur', checkInputNameValue)
+
+inputEmail.addEventListener('blur', checkInputEmailValue)
+
+inputAreaOfExpertise.addEventListener('blur', checkInputAreaOfExpertiseValue)
+
+recordChanges.addEventListener('click', (event) =>{
+    event.preventDefault()
+    let dontHaveFalse = inputs.every(input => input.classList.contains('false') === false)
+
+    if(inputAreaOfExpertise.value === '') createModal('لطفا حوزه تخصصی خود را وارد کنید', 'fa fa-close', '#ef4444')
+    else if(dontHaveFalse) getAllUsers()
+    else createModal('لطفا اطلاعات خود را درست وارد کنید', 'fa fa-close', '#ef4444')
+})
+
 window.addEventListener('DOMContentLoaded', () =>{
 
     getCookie('accessToken')
@@ -281,25 +372,30 @@ window.addEventListener('DOMContentLoaded', () =>{
 
     asideMenuLists.some(asideMenuList =>{
         let param = asideMenuList.getAttribute('data-param')
-        if(param === userParam){
-            addClass(asideMenuList, 'active')
-            
-            if(userParam === 'profile'){
-                title.innerText = `پنل کاربری - داشبورد`
-                totalContainerMainContents[0].style.display = 'block'
-                checkInnerHeight(totalContainerMainContents[0])
+
+        if(userParam === 'me'){
+            title.innerText = `پنل کاربری - من`
+            totalContainerMainContents[3].style.display = 'block'
+            checkInnerHeight(totalContainerMainContents[3])
+        }else{
+            if(param === userParam){
+                addClass(asideMenuList, 'active')
+    
+                if(userParam === 'profile'){
+                    title.innerText = `پنل کاربری - داشبورد`
+                    totalContainerMainContents[0].style.display = 'block'
+                    checkInnerHeight(totalContainerMainContents[0])
+                }else if(userParam === 'orders'){
+                    title.innerText = `پنل کاربری - سفارش‌های من`
+                    totalContainerMainContents[1].style.display = 'block'
+                    checkInnerHeight(totalContainerMainContents[1])
+                }else if(userParam === 'courses'){
+                    title.innerText = `پنل کاربری - دوره‌های من`
+                    totalContainerMainContents[2].style.display = 'block'
+                    checkInnerHeight(totalContainerMainContents[2])
+                }
+                return true
             }
-            else if(userParam === 'orders'){
-                title.innerText = `پنل کاربری - سفارش‌های من`
-                totalContainerMainContents[1].style.display = 'block'
-                checkInnerHeight(totalContainerMainContents[1])
-            }
-            else if(userParam === 'courses'){
-                title.innerText = `پنل کاربری - دوره‌های من`
-                totalContainerMainContents[2].style.display = 'block'
-                checkInnerHeight(totalContainerMainContents[2])
-            }
-            return true
         }
     })
 })
