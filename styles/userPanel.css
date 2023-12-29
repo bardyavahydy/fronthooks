@@ -203,7 +203,7 @@ button{
     color: var(--color-secondary-700);
 }
 
-.cross-svg, .aside-menu__svg,  .mobile-user-panel-profile__svg, .edit-user-panel__svg, .guide-to-using-course-licenses__svg{
+.cross-svg, .aside-menu__svg,  .mobile-user-panel-profile__svg, .edit-user-panel__svg, .guide-to-using-course-licenses__svg, .total-container-form__hint-svg{
     width: 2rem;
     height: 2rem;
 }
@@ -306,12 +306,14 @@ button{
 /* header */
 
 .container-header-and-main-content{
-    padding: 8rem 24rem 0 0;
+    position: fixed;
+    inset: 0;
     width: 100%;
+    z-index: -1;
 }
 
 .total-container-header{
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 24rem;
     top: 0;
@@ -400,18 +402,15 @@ button{
 
 .total-container-main-content{
     display: none;
-    background: #f4f5f7;
-    position: fixed;
-    top: 8rem;
-    height: calc(100% - 8rem);
-    width: calc(100% - 24rem);
-    border-top-right-radius: 3rem;
-}
-
-.container-main-content{
     overflow-y: scroll;
-    padding: 4rem 4rem 0 4rem;
-    height: calc(100% - 4rem);
+    background: #f4f5f7;
+    padding: 4rem;
+    position: absolute;
+    top: 8rem;
+    left: 0;
+    right: 24rem;
+    bottom: 0;
+    border-top-right-radius: 3rem;
 }
 
 .container-welcome{
@@ -440,7 +439,7 @@ button{
     margin-bottom: 3.2rem;
 }
 
-.my-records-title, .total-container-my-latest-orders__title, .container-my-successful-orders__title, .container-my-courses{
+.my-records-title, .total-container-my-latest-orders__title, .container-my-successful-orders__title, .container-my-courses, .total-container-form__title{
     color: var(--color-secondary-700);
     font-size: 2.4rem;
     font-weight: 800;
@@ -642,7 +641,7 @@ button{
 
 /* my successful orders */
 
-.container-my-successful-orders__hint, .guide-to-using-course-licenses, .container-my-courses__hint{
+.container-my-successful-orders__hint, .guide-to-using-course-licenses, .container-my-courses__hint, .total-container-form__hint{
     color: #7f8198;
     font-size: 1.4rem;
     font-weight: 300;
@@ -693,6 +692,134 @@ button{
     -o-border-radius: .8rem;
 }
 
+/* form */
+
+.total-container-form{
+    width: 100%;
+    max-width: 51.2rem;
+    margin-top: .8rem;
+}
+.container-form{
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+    overflow: hidden;
+    color: var(--color-secondary-600);
+}
+
+.total-container-profile-img-and-username{
+    position: relative;
+    background: linear-gradient(to top left, rgb( 191,192,203 ) , rgba( 212,213,221 ,0.3));
+    height: 11.2rem;
+}  
+
+.slogan{
+    background: #fff;
+    font-weight: 600;
+    padding: .4rem .8rem;
+    border-radius: .8rem;
+    -webkit-border-radius: .8rem;
+    -moz-border-radius: .8rem;
+    -ms-border-radius: .8rem;
+    -o-border-radius: .8rem;
+}
+
+.container-profile-img-and-username{
+    position: absolute;
+    right: 2.8rem;
+    top: 5.6rem;
+}
+
+.container-profile-cover{
+    background: linear-gradient(to top left, rgb( 170,171,186 ) , rgb( 212,213,221 ));
+    border: .4rem solid #fff;
+    width: 11.2rem;
+    height: 11.2rem;
+} 
+
+.container-profile-cover__svg{
+    color: #fff;
+    width: 3.2rem;
+    height: 3.2rem;
+}
+
+.container-username{
+    align-self: flex-end;
+    margin-right: 1rem;
+}
+
+.container-username__name{
+    color: var(--color-secondary-700);
+    font-size: 2rem;
+    font-weight: 700;
+} 
+
+.container-username__type{
+    color: #7f8198;
+    font-size: 1.4rem;
+    font-weight: 200;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+    width: 100%;
+    max-width: 38.4rem;
+    margin: 13rem auto 1.2rem;
+}
+
+.label{
+    font-size: 1.4rem;
+    margin-bottom: .4rem;
+}
+
+.label:not(:first-child){
+    margin-top: 2rem;
+}
+
+.input{
+    border: none;
+    outline: none;
+    background: #f3f4f6;
+    color: var(--color-secondary-900);
+    padding: 1.2rem 1.6rem;
+    font-size: 1.6rem;
+    border: 0.1rem solid #f3f4f6;
+    transition: border .3s;
+    -webkit-transition: border .3s;
+    -moz-transition: border .3s;
+    -ms-transition: border .3s;
+    -o-transition: border .3s;
+}
+
+.input:hover{
+    border-color: var(--color-primary-300);
+}
+
+.input.focus{
+    box-shadow: 0 12px 24px -8px var(--color-primary-300);
+    background: #fff;
+    border-color: var(--color-primary-300);
+}
+
+.input.false{
+    box-shadow: 0 12px 24px -8px #f2676779;
+    background: #f3f4f6;
+    border: .1rem solid var(--color-red-500);
+}
+
+.record-changes{
+    box-shadow: 0 10px 15px -3px rgb( 183,197,255 ) ,0 4px 6px -4px rgb( 183,197,255 );
+    background: var(--color-primary-900);
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    margin-top: 3.6rem;
+}
+
+/* msg */ 
+
 .msg{
     color: var(--color-red-500);
     font-weight: 500;
@@ -710,6 +837,56 @@ button{
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+}
+
+/* modal */
+
+.container-modal{
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0rem 0rem 1rem #0000003a;
+    position: fixed;
+    z-index: 99;
+    top: -7rem;
+    right: 50%;
+    width: fit-content;
+    height: fit-content;
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    transform: translateX(50%);
+    -webkit-transform: translateX(50%);
+    -moz-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    -o-transform: translateX(50%);
+}
+
+.fa-check, .fa-close{
+    display: inline-block;
+    color: #fff;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.container-modal__message-modal{
+    font-size: 1.4rem;
+    font-weight: 200;
+} 
+
+.container-modal__line{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: .4rem;
 }
 
 @keyframes profileAnimation{
@@ -744,21 +921,53 @@ button{
     }
 }
 
+@keyframes modalAnimation{
+    0%{
+        top: -4rem;
+    }
+
+    5%{
+        top: .5rem;
+    }
+
+    99%{
+        top: .5rem;
+    }
+
+    100%{
+        top: .5rem;
+    }
+}
+
+@keyframes modalIconAnimation{
+    0%{
+        scale: 0;
+    }
+
+    100%{
+        scale: 1;
+    }
+}
+
+@keyframes modalLineAnimation{
+    0%{
+        left: 0;
+        right: 0;
+    }
+
+    100%{
+        right: 50%;
+        left: 50%;
+    }
+}
+
 @media (max-width: 1279px){
     .aside {
         width: 32rem;
     }
 
-    .container-header-and-main-content {
-        padding-right: 32rem;
-    }
-
-    .total-container-header{
+    .total-container-header, .total-container-main-content{
         right: 32rem;
-    }
-
-    .total-container-main-content{
-        width: calc(100% - 32rem);
     }
 
     .container-table--my-courses{
@@ -821,10 +1030,6 @@ button{
         display: inline;
     }
 
-    .container-header-and-main-content {
-        padding-right: 0;
-    }
-
     .total-container-header {
         padding: 2rem 1.6rem;
         right: 0;
@@ -850,22 +1055,17 @@ button{
         margin-right: 0;
         border-right: none;
     }
-
+    
     .total-container-main-content{
-        width: 100%;
-    }
-
-    .container-main-content{
-        padding: 2.4rem 2.4rem 0 2.4rem;
-        width: 100%;
-        height: calc(100% - 2.4rem);
+        right: 0;
+        padding: 2.4rem;
     }
 
     .container-welcome{
         padding: 1.2rem;
     }
 
-    .my-records-title, .total-container-my-latest-orders__title, .container-my-successful-orders__title, .container-my-courses__title {
+    .my-records-title, .total-container-my-latest-orders__title, .container-my-successful-orders__title, .container-my-courses__title, .total-container-form__title {
         font-size: 2rem;
     }
 
@@ -880,9 +1080,8 @@ button{
 }
 
 @media (max-width: 767px){
-    .container-main-content{
-        padding: 1.6rem 1.6rem 0 1.6rem;
-        height: calc(100% - 1.6rem);
+    .total-container-main-content{
+        padding: 1.6rem;
     }
 
     .container-my-records{
@@ -899,6 +1098,30 @@ button{
 
     .table{
         min-width: 80rem;
+    }
+
+    .total-container-profile-img-and-username{
+        align-items: flex-start;
+    }
+    
+    .slogan{
+        margin-top: 1.6rem;
+        font-size: 1.4rem;
+    }
+
+    .container-profile-img-and-username{
+        flex-direction: column;
+        right: 50%;
+        transform: translateX(50%);
+        -webkit-transform: translateX(50%);
+        -moz-transform: translateX(50%);
+        -ms-transform: translateX(50%);
+        -o-transform: translateX(50%);
+    }
+
+    .container-username{
+        align-self: flex-start;
+        margin-right: 0rem;
     }
 }
 
