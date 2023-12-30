@@ -111,6 +111,7 @@ class CourseSite extends HTMLElement{
         const coursePrice = $.querySelector('.container-course__price')    
         const continueOrderLinkBtn = $.querySelector('.container-course__continue-the-order-link')
         const showCourseLink = $.querySelector('.container-course__show-course-link')
+        const cartNumberOfOrder = document.querySelector('header-site').shadowRoot.querySelector('.cart__number-of-order');
 
         courseImg.src = this.getAttribute('imgcourse-src')
         courseImg.alt = 'course-img'
@@ -159,6 +160,7 @@ class CourseSite extends HTMLElement{
             courseRegisterBtn.addEventListener('click', (event) =>{
                 createCircleForBtn(event, event.target, event.target.offsetWidth)
                 if(isLogin){
+                    cartNumberOfOrder.innerText = e2p((+p2e(cartNumberOfOrder.innerText) + 1))
                     const selectedCourseInfo = {
                         courseTitle: courseTitle.innerText,
                         imgCourse: courseImg.src,
