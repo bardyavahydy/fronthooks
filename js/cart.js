@@ -6,7 +6,7 @@ import { addClass, removeClass, createCircleForBtn, SetTheDate, SetTheTime } fro
 import { createModal } from "./modal.js";
 import { getAllData, postData, putData, deleteData } from "./HTTPreq.js";
 import { getCookie } from "./cookie.js";
-import { e2p, sp } from "./convertNumbers.js";
+import { e2p, p2e, sp } from "./convertNumbers.js";
 
 window.customElements.define('header-site', HeaderSite)
 window.customElements.define('footer-site', FooterSite)
@@ -26,6 +26,7 @@ const totalOffElm = $.querySelector('.total-off')
 const theAmountPayableElm = $.querySelector('.container-the-amount-payable-info__price')
 const paymentBtn = $.querySelector('.payment-btn')
 const loadings = $.querySelectorAll('.container-calculations .loading')
+const cartNumberOfOrder = $.querySelector('header-site').shadowRoot.querySelector('.cart__number-of-order');
 
 let coursesFragment = $.createDocumentFragment()
 let tokenObj = getCookie('accessToken')
@@ -190,6 +191,7 @@ const generateCourseToDom = (coursesObj) =>{
 const deleteCourseHandler = async (courseId, loading, deleteCourseBtn, courseTitle) =>{
     addActiveToLoadingAndAddInactiveToAnotherElm(loading, deleteCourseBtn)
     await deleteData(`${userToken}selectedCourseUser`, courseId)
+    cartNumberOfOrder.innerText = e2p((+p2e(cartNumberOfOrder.innerText) - 1))
     createModal(`${courseTitle} از سبد خرید حذف شد .`, 'fa fa-check', '#00c073')
     getCourses()
     removeActiveToLoadingAndRemoveInactiveToAnotherElm(loading, deleteCourseBtn)
@@ -229,6 +231,7 @@ const putSelectedCourses = async () =>{
             await Promise.all([putData(selectedCourseInfo, `${userToken}selectedCourseUser`, courseId), setNumberOfCourseStudent(courseObj.table, courseObj.purchaseStatus)])
         }
     }
+    cartNumberOfOrder.innerText = e2p(0)
     createModal('دوره‌ها با موفقیت خریداری شدند .', 'fa fa-check', '#00c073')
     addActiveAndRemoveInactiveFromTotalContainerMsg()
     removeActiveToLoadingAndRemoveInactiveToAnotherElm(loadings[1], paymentBtn)
