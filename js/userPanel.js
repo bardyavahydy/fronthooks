@@ -29,6 +29,8 @@ const myRecordsWrapperOrders = $.querySelector('.my-records-wrapper__orders')
 const tbodyProfile = $.querySelector('.tbody-profile')
 const tbodyCourses = $.querySelector('.tbody-courses')
 const tbodyOrders = $.querySelector('.tbody-orders')
+const loading = $.querySelector('.loading') 
+const totalContainerForm = $.querySelector('.total-container-form')
 const profileUsername = $.querySelector('.container-username__name')
 const containerUsernameType = $.querySelector('.container-username__type')
 const inputs = Array.from($.querySelectorAll('.input'))
@@ -288,9 +290,13 @@ const getAllUsers = async () =>{
 }
 
 const putNewUserDateInDB = async () =>{
+    addClass(loading, 'active')
+    addClass(totalContainerForm, 'inactive')
     let userData = {date: myRecordsWrapperDate.innerText, hours: registrationTime, userEmail: inputEmail.value, userPhone, username: inputName.value, areaOfExpertise: inputAreaOfExpertise.value}
     await putData(userData, 'allUsers', userToken)
-    location.reload()
+    getUser()
+    removeClass(loading, 'active')
+    removeClass(totalContainerForm, 'inactive')
 }
 
 //EVENTS
