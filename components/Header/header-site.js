@@ -125,9 +125,7 @@ template.innerHTML = `
                         <div class="mobile-user-panel space-between">
                             <di class="mobile-user-panel-dashboard align-items-center">
                                 <div class="mobile-user-panel-dashboard__container-img border-radius-circle">
-                                    <a href="./userPanel.html?param=profile" class="mobile-user-panel-dashboard__link">
-                                    <img src="./imgs/user1.jpeg" alt="user" class="mobile-user-panel-dashboard__img Hfull-Vful border-radius-circle">
-                                    </a>
+                                    <a href="./userPanel.html?param=profile" class="mobile-user-panel-dashboard__link Hfull-Vful"></a>
                                 </div>
                                 <div class="mobile-user-panel-dashboard__infos">
                                     <a href="./userPanel.html?param=profile" class="mobile-user-panel-dashboard__profile-link">bardya vahydy</a>
@@ -175,9 +173,7 @@ template.innerHTML = `
                 </div>
                 <div class="desktop-user-panel-profile-menus">
                     <div class="desktop-user-panel-profile-menus__infos align-items-center">
-                        <div class="desktop-user-panel-profile-menus__container-img border-radius-circle">
-                            <img src="./imgs/user1.jpeg" alt="user" class="desktop-user-panel-profile-menus__img Hfull-Vful border-radius-circle">
-                        </div>
+                        <div class="desktop-user-panel-profile-menus__container-img border-radius-circle"></div>
                         <div class="desktop-user-panel-profile-menus__container-name-number">
                             <p class="desktop-user-panel-profile-menus__name">bardya vahydy</>
                             <p class="desktop-user-panel-profile-menus__number">09383666056</p>
@@ -253,6 +249,7 @@ class HeaderSite extends HTMLElement{
         const desktopUserPanelProfile = $.querySelector('.desktop-user-panel-profile')
         const cartNumberOfOrder = $.querySelector('.cart__number-of-order')
         const desktopRegisterLink = $.querySelector('.desktop-register__link')
+        const desktopUserPanelProfileMenusContainerImg = $.querySelector('.desktop-user-panel-profile-menus__container-img')
         const userProfileMenuLists = $.querySelectorAll('.user-profile-menu__list')
         const containerDesktopUserPanelProfile = $.querySelector('.container-desktop-user-panel-profile')
         const userProfile = $.querySelector('.desktop-user-panel-profile')
@@ -260,6 +257,8 @@ class HeaderSite extends HTMLElement{
         const userPhoneElm = $.querySelector('.desktop-user-panel-profile-menus__number')
         const userProfileMenu = $.querySelector('.desktop-user-panel-profile-menus')
         const logOutBtn = $.querySelector('.user-profile-menu__link--logout')
+        const mobileUserPanelDashboardLink = $.querySelector('.mobile-user-panel-dashboard__link')
+
         const converAllUsersToArr = async () =>{
             let user = null
             let allUsersObj = await this.getAllUsersFromDB()
@@ -272,10 +271,19 @@ class HeaderSite extends HTMLElement{
                 addClass(desktopRegisterLink, 'inactive')
                 addClass(containerDesktopUserPanelProfile, 'show')
                 addClass(mobileRegister, 'inactive')
-                if(window.innerWidth < 810) addClass(containerMobileUserPanel, 'show')
                 usernameElm.innerText = user[1].username
                 userPhoneElm.innerText = e2p(user[1].userPhone)
                 userProfileLink.innerText = user[1].username
+                
+                if(window.innerWidth < 810) addClass(containerMobileUserPanel, 'show')
+
+                if(user[1].profileImg){
+                    this.generateImg(desktopUserPanelProfileMenusContainerImg, user[1].profileImg, "desktop-user-panel-profile-menus__img")
+                    this.generateImg(mobileUserPanelDashboardLink, user[1].profileImg, "mobile-user-panel-dashboard__img")
+                }else{
+                    this.showTheFirstLetterOfTheUser(desktopUserPanelProfileMenusContainerImg, user[1].username[0])
+                    this.showTheFirstLetterOfTheUser(mobileUserPanelDashboardLink, user[1].username[0])
+                }
             }
         }
         converAllUsersToArr()
@@ -406,6 +414,18 @@ class HeaderSite extends HTMLElement{
 
     autoRemoveFromAnotherAlm(){
         if(this.shadowRoot.querySelector('.active')) this.shadowRoot.querySelector('.active').classList.remove('active')
+    }
+
+    generateImg(elm, url, classnames){
+        elm.innerHTML = ''
+        elm.innerHTML = `
+            <img src="${url}" alt="user" class="${classnames} Hfull-Vful border-radius-circle">
+        `
+    }
+
+    showTheFirstLetterOfTheUser = (elm, username) =>{
+        addClass(elm, 'center')
+        elm.innerText = username[0]
     }
 
     async getAllUsersFromDB (){
