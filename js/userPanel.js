@@ -19,6 +19,7 @@ const btnMenuHamburger = $.querySelector('.btn-menu-hamburger')
 const headerTitleText = $.querySelector('.container-header-title-and-time__text')
 const cart = $.querySelector('.cart')
 const numberOfOrderElm = $.querySelector('.cart__number-of-order')
+const containerUserPanelCoverLink = $.querySelector('.container-user-panel-cover-link')
 const userProfileLink = $.querySelector('.user-profile-link')
 const totalContainerMainContents = $.querySelectorAll('.total-container-main-content')
 const containerWelcomeUsername = $.querySelector('.container-welcome__username')
@@ -31,6 +32,8 @@ const tbodyCourses = $.querySelector('.tbody-courses')
 const tbodyOrders = $.querySelector('.tbody-orders')
 const loading = $.querySelector('.loading') 
 const totalContainerForm = $.querySelector('.total-container-form')
+const containerProfileCover = $.querySelector('.container-profile-cover')
+const inputFile = $.querySelector('.input-file')
 const profileUsername = $.querySelector('.container-username__name')
 const containerUsernameType = $.querySelector('.container-username__type')
 const inputs = Array.from($.querySelectorAll('.input'))
@@ -48,6 +51,7 @@ let numberOfOrder = 0
 let trFragment =  $.createDocumentFragment()
 let userPhone = null
 let registrationTime = null
+let file = null
 
 //FUNCTIONS
 
@@ -64,6 +68,10 @@ const getUser = async () =>{
     inputAreaOfExpertise.value = userObj.areaOfExpertise || ''
     userPhone = userObj.userPhone 
     registrationTime = userObj.hours 
+    if(userObj.profileImg){
+        generateImg(containerProfileCover, userObj.profileImg)
+        generateImg(containerUserPanelCoverLink, userObj.profileImg)
+    }else showTheFirstLetterOfTheUser(userObj.username)
 }
 
 const getCourses = async () =>{
@@ -243,6 +251,38 @@ const checkInnerHeight = (elm) =>{
     }, 3000);
 }
 
+const getFile = async (This) =>{
+    file = This.files[0];
+    let fileType = file.type;
+    let validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
+
+    if(validExtensions.includes(fileType)){
+        let fileURL = null
+        let fileReader = new FileReader();
+        
+        fileReader.onload = async () =>{
+            fileURL = fileReader.result;
+            containerProfileCover.innerHTML = ''
+            generateImg(containerProfileCover, fileURL)
+            let userData = {date: myRecordsWrapperDate.innerText, hours: registrationTime, userEmail: inputEmail.value, userPhone, username: inputName.value, areaOfExpertise: inputAreaOfExpertise.value, profileImg: `${fileURL}`}
+            await putData(userData, 'allUsers', userToken)
+        }
+
+        fileReader.readAsDataURL(file);
+    }else createModal("فایل انتخابی عکس نیست لطفا عکس انتخاب کنید.", 'fa fa-close', '#ef4444')
+}
+
+const generateImg = (elm, url) =>{
+    elm.innerHTML = `
+    <img src="${url}" alt="profile img" class="profile-img Hfull-Vful">
+    `
+}
+
+const showTheFirstLetterOfTheUser = (username) =>{
+    addClass(containerUserPanelCoverLink, 'center')
+    containerUserPanelCoverLink.innerText = username[0]
+}
+
 const checkInputNameValue = () =>{
     if(/^[\w\d]+[\w\d\.\-\s_]*$/.test(inputName.value)){
         if(inputName.value.length < 6){
@@ -350,10 +390,15 @@ userProfileLink.addEventListener('click', function(event){
     createCircleForBtn(event, this, this.offsetWidth)
 })
 
+containerProfileCover.addEventListener('click', () => inputFile.click())
+
+inputFile.addEventListener("change", function(){
+    getFile(this)
+})
+
 inputs.forEach(input => input.addEventListener('focus', () => addClass(input, 'focus')))
 
 inputs.forEach(input => input.addEventListener('blur', () => removeClass(input, 'focus')))
-
 
 inputName.addEventListener('blur', checkInputNameValue)
 
@@ -371,7 +416,6 @@ recordChanges.addEventListener('click', (event) =>{
 })
 
 window.addEventListener('DOMContentLoaded', () =>{
-
     getCookie('accessToken')
     getUser()
     getCourses()
