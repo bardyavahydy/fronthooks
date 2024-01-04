@@ -326,6 +326,10 @@ button{
     -webkit-animation: profileFade .9s linear infinite;
 }
 
+.mobile-user-panel-dashboard__link{
+    color: #fff;
+}
+
 .mobile-user-panel-dashboard__infos{
     font-size: 1.4rem;
     color: var(--color-secondary-700);
@@ -464,10 +468,16 @@ button{
 }
 
 .desktop-user-panel-profile-menus__container-img, .mobile-user-panel-dashboard__container-img{
+    background: #a4a4a6;
+    color: #fff;
     width: 4.5rem;
     height: 4.5rem;
     border: .2rem solid #cecece;
     margin-left: .8rem;
+}
+
+.desktop-user-panel-profile-menus__img, .mobile-user-panel-dashboard__img{
+    object-fit: cover;
 }
 
 .desktop-user-panel-profile-menus__container-name-number{
