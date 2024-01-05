@@ -52,6 +52,7 @@ let trFragment =  $.createDocumentFragment()
 let userPhone = null
 let registrationTime = null
 let file = null
+let fileURL = null
 
 //FUNCTIONS
 
@@ -257,13 +258,14 @@ const getFile = async (This) =>{
     let validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
 
     if(validExtensions.includes(fileType)){
-        let fileURL = null
         let fileReader = new FileReader();
         
         fileReader.onload = async () =>{
             fileURL = fileReader.result;
             containerProfileCover.innerHTML = ''
             generateImg(containerProfileCover, fileURL)
+            generateImg(containerUserPanelCoverLink, fileURL)
+
             let userData = {date: myRecordsWrapperDate.innerText, hours: registrationTime, userEmail: inputEmail.value, userPhone, username: inputName.value, areaOfExpertise: inputAreaOfExpertise.value, profileImg: `${fileURL}`}
             await putData(userData, 'allUsers', userToken)
         }
@@ -332,7 +334,12 @@ const getAllUsers = async () =>{
 const putNewUserDateInDB = async () =>{
     addClass(loading, 'active')
     addClass(totalContainerForm, 'inactive')
-    let userData = {date: myRecordsWrapperDate.innerText, hours: registrationTime, userEmail: inputEmail.value, userPhone, username: inputName.value, areaOfExpertise: inputAreaOfExpertise.value}
+    let userData = null
+    if(fileURL){
+        userData = {date: myRecordsWrapperDate.innerText, hours: registrationTime, userEmail: inputEmail.value, userPhone, username: inputName.value, areaOfExpertise: inputAreaOfExpertise.value, profileImg: `${fileURL}`}
+    }else{
+        userData = {date: myRecordsWrapperDate.innerText, hours: registrationTime, userEmail: inputEmail.value, userPhone, username: inputName.value, areaOfExpertise: inputAreaOfExpertise.value, profileImg: ''}
+    }
     await putData(userData, 'allUsers', userToken)
     getUser()
     removeClass(loading, 'active')
