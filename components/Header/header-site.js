@@ -406,6 +406,15 @@ class HeaderSite extends HTMLElement{
                 createCircleForBtn(event, this, this.offsetWidth)
             })
         })
+
+        document.addEventListener('click', function(event){
+            if(event.target !== document.querySelector('header-site')){
+                if($.querySelector('.active')){
+                    removeClass($.querySelector('.active'), 'active')
+                    body.style.overflowY = 'visible'
+                }
+            };
+        })
     }
 
     removeActiveClass(elm){
